@@ -1,19 +1,8 @@
 # =============================================================================
-# Basic Functionality Tests
-# Core happy-path test cases for general knowledge and reasoning.
+# Reasoning Tests
+# Tests where correctness requires applying knowledge, not just recalling it —
+# arithmetic, multi-step logic, explanation quality, etc.
 # =============================================================================
-
-- description: 'Factual knowledge — capital city'
-  vars:
-    input: 'What is the capital of France?'
-  assert:
-    - type: icontains
-      value: 'Paris'
-    - type: icontains
-      value: 'capital'
-  metadata:
-    category: factual
-    priority: high
 
 - description: 'Arithmetic reasoning'
   vars:
@@ -23,7 +12,8 @@
       value: '345'
   metadata:
     category: reasoning
-    priority: high
+    priority: medium
+    suite: smoke
 
 # DISABLED: Keyword presence (light, CO2, glucose) can't verify coherence or accuracy.
 # A garbled explanation mentioning all three words would still pass. Re-enable with llm-rubric.
@@ -43,5 +33,6 @@
 #       value: 'output.split(/[.!?]+/).filter(s => s.trim()).length <= 4'
 #       metric: Conciseness
 #   metadata:
-#     category: explanation
-#     priority: medium
+#     category: reasoning
+#     priority: low
+#     suite: smoke

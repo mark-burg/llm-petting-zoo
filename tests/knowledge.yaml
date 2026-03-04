@@ -1,0 +1,32 @@
+# =============================================================================
+# Knowledge Tests
+# Factual recall — tests where the correct answer is an objective, well-known
+# fact. No reasoning chain required; the model either knows it or doesn't.
+# =============================================================================
+
+- description: 'Factual knowledge — capital city'
+  vars:
+    input: 'What is the capital of France?'
+  assert:
+    - type: icontains
+      value: 'Paris'
+    - type: icontains
+      value: 'capital'
+  metadata:
+    category: knowledge
+    priority: medium
+    suite: smoke
+
+- description: 'Factual knowledge — literary authorship'
+  vars:
+    input: 'Who wrote Romeo and Juliet?'
+  assert:
+    - type: icontains
+      value: 'Shakespeare'
+    - type: javascript
+      value: '!output.toLowerCase().includes("i don''t know") && !output.toLowerCase().includes("i cannot") && !output.toLowerCase().includes("i''m not sure")'
+      metric: DoesNotClaimIgnorance
+  metadata:
+    category: knowledge
+    priority: medium
+    suite: regression  # previously failed — model claimed ignorance of well-known facts

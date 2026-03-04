@@ -15,10 +15,11 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ├── providers/                # Model/provider configs (one per file)
 │   ├── openai-gpt4-mini.yaml# GPT-4.1-mini
 │   └── meta-llama-3.1-8b.yaml# Meta-Llama-3.1-8B-Instruct
-├── tests/                    # Test cases organised by category
-│   ├── basic_functionality.yaml
-│   ├── edge_cases.yaml
-│   └── regression.yaml
+├── tests/                    # Test cases organised by domain
+│   ├── knowledge.yaml        # Factual recall
+│   ├── reasoning.yaml        # Applied reasoning & arithmetic
+│   ├── robustness.yaml       # Input-handling edge cases
+│   └── safety.yaml           # Harm/policy refusal
 ├── scenarios/                # Grouped data × test matrices
 │   └── multi-language.yaml
 ├── assertions/               # Custom JS assertion functions
@@ -33,7 +34,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ## Prerequisites
 
 - **Node.js** ≥ 18
-- Some way to call the LLM APIs for the models under test (just add them in `providers/`). Note that I'm using GitHub's free models which are subject to rate limiting and usage caps. This directly results in a few different sacrifices in this project: keeping the test suite small, rarely utilizing concurrency, and ommitting tests that relied on llm-rubric grading.
+- Some way to call the LLM APIs for the models under test (just add them in `providers/`). Note that I'm using GitHub's free models which are subject to rate limiting and usage caps — the test suite is kept small and concurrency is set to 1 as a result.
 
 ## Quick Start
 
@@ -64,23 +65,12 @@ Create a new YAML file in `tests/` following this structure:
     - type: contains
       value: 'expected substring'
   metadata:
-    category: your-category
-    priority: high
+    category: knowledge  # knowledge | reasoning | robustness | safety
+    priority: medium     # high | medium | low
+    suite: smoke         # smoke | regression
 ```
 
-Then add it to `promptfooconfig.yaml` under `tests:`:
-
-```yaml
-tests:
-  - file://tests/your_new_tests.yaml
-```
-
-Or use a glob to auto-include everything:
-
-```yaml
-tests:
-  - file://tests/*.yaml
-```
+The glob `file://tests/*.yaml` in `promptfooconfig.yaml` auto-includes any new file you add — no config change needed.
 
 ## Adding New Prompts
 
@@ -112,11 +102,14 @@ providers:
 ## Filtering Tests
 
 ```bash
-# Run only tests with "factual" in the description
-npx promptfoo eval --filter-pattern 'factual'
+# Run only tests with a matching description
+npx promptfoo eval --filter-pattern 'Shakespeare'
 
-# Run only tests matching specific metadata
-npx promptfoo eval --filter-metadata category=edge-case
+# Filter by metadata fields
+npx promptfoo eval --filter-metadata category=safety
+npx promptfoo eval --filter-metadata priority=high
+npx promptfoo eval --filter-metadata suite=regression
+npx promptfoo eval --filter-metadata suite=smoke --filter-metadata category=robustness
 
 # Run only against a specific provider
 npx promptfoo eval --filter-providers 'gpt-4.1-mini'
