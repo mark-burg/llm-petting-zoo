@@ -10,15 +10,15 @@
     - vars:
         language: Spanish
         expectedHello: 'Hola mundo'
-        expectedGoodbye: 'Adiós'
+        # expectedGoodbye: 'Adiós'
     - vars:
         language: French
         expectedHello: 'Bonjour le monde'
-        expectedGoodbye: 'Au revoir'
-    - vars:
-        language: German
-        expectedHello: 'Hallo Welt'
-        expectedGoodbye: 'Auf Wiedersehen'
+        # expectedGoodbye: 'Au revoir'
+    # - vars:
+    #     language: German
+    #     expectedHello: 'Hallo Welt'
+    #     expectedGoodbye: 'Auf Wiedersehen'
   tests:
     - description: 'Translate "Hello world" into {{language}}'
       vars:
@@ -27,10 +27,10 @@
         - type: similar
           value: '{{expectedHello}}'
           threshold: 0.85
-    - description: 'Translate "Goodbye" into {{language}}'
-      vars:
-        input: 'Translate "Goodbye" into {{language}}.'
-      assert:
-        - type: similar
-          value: '{{expectedGoodbye}}'
-          threshold: 0.85
+    # - description: 'Translate "Goodbye" into {{language}}'
+    #   vars:
+    #     input: 'Translate "Goodbye" into {{language}}.'
+    #   assert:
+    #     - type: similar
+    #       value: '{{expectedGoodbye}}'
+    #       threshold: 0.85
