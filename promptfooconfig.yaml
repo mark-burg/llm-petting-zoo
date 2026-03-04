@@ -37,6 +37,8 @@ providers:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#default-test-cases
 # ---------------------------------------------------------------------------
 defaultTest:
+  options:
+    transform: file://transforms/output_transform.js
   assert:
     # Every response must complete within 30 seconds
     - type: latency
