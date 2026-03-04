@@ -10,6 +10,8 @@
 
 description: 'LLM prompt & model comparison evaluation'
 
+outputPath: report.html
+
 tags:
   project: llm-petting-zoo
   stage: development

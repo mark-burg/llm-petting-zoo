@@ -40,3 +40,11 @@ jobs:
           config: 'promptfooconfig.yaml'
           cache-path: '.promptfoo-cache'
           no-share: true
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: promptfoo-report
+          path: report.html
+          retention-days: 90
