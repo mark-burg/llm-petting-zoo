@@ -94,5 +94,4 @@ evaluateOptions:
 # Command-line option defaults
 # ---------------------------------------------------------------------------
 commandLineOptions:
-  envPath: .env
   verbose: false
