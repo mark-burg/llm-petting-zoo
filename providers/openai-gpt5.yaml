@@ -1,0 +1,4 @@
+id: openai:gpt-5
+label: gpt-5
+config:
+  temperature: 0

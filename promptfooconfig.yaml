@@ -30,6 +30,7 @@ prompts:
 providers:
   - file://providers/openai-gpt4.yaml
   - file://providers/openai-gpt4-mini.yaml
+  - file://providers/openai-gpt5.yaml
 
 # ---------------------------------------------------------------------------
 # Default test properties applied to every test case.
