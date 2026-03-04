@@ -42,9 +42,25 @@ defaultTest:
     # Every response must complete within 30 seconds
     - type: latency
       threshold: 30000
-    # Every response must not be a refusal (unless the test expects one)
-    - type: cost
-      threshold: 0.10 # USD — flag anything over $0.10 per call
+    # Cost guard — skips gracefully if the provider does not report cost (e.g. Meta-Llama).
+    # The native `type: cost` throws a hard error on providers that return no cost data;
+    # this javascript version checks context.providerResponse?.cost first.
+    # Docs: https://www.promptfoo.dev/docs/configuration/expected-outputs/javascript/
+    - type: javascript
+      metric: Cost
+      value: |
+        const cost = context.providerResponse?.cost;
+        if (cost === undefined) {
+          return { pass: true, score: 1, reason: 'Provider does not report cost — skipped' };
+        }
+        const pass = cost < 0.10;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Cost $${cost.toFixed(4)} is within the $0.10 limit`
+            : `Cost $${cost.toFixed(4)} exceeds the $0.10 limit`,
+        };
 
 # ---------------------------------------------------------------------------
 # Assertion templates — reusable via $ref

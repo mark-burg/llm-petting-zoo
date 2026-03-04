@@ -126,6 +126,10 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 | `npx promptfoo eval --no-cache` | Run without caching |
 | `npx promptfoo eval --repeat 3` | Run each test 3 times for consistency |
 
+## Design Notes
+
+**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data (e.g. Meta-Llama via GitHub Models). `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (e.g. GPT-4.1-mini).
+
 ## Documentation
 
 - [promptfoo Getting Started](https://www.promptfoo.dev/docs/getting-started/) — installation, first eval, basic config
