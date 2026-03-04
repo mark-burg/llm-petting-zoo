@@ -30,7 +30,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ## Prerequisites
 
 - **Node.js** ≥ 18
-- An **OpenAI API key** (or keys for whichever providers you configure)
+- A **GitHub Personal Access Token** with `models:read` permission — create one at [github.com/settings/tokens](https://github.com/settings/tokens)
 
 ## Quick Start
 
