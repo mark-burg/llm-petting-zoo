@@ -5,8 +5,10 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ## Project Structure
 
 ```
+├── .github/
+│   └── workflows/
+│       └── prompt-eval.yml   # CI: runs eval on PRs that touch prompts/tests/providers
 ├── promptfooconfig.yaml      # Main config (auto-loaded by promptfoo)
-├── .env.example              # Template for API keys
 ├── prompts/                  # Prompt templates (use {{input}} variable)
 │   ├── baseline.txt          # Simple, minimal prompt
 │   └── enhanced.txt          # Detailed prompt with instructions
@@ -23,8 +25,9 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   └── custom_assert.js
 ├── transforms/               # Output transform functions
 │   └── output_transform.js
-└── extensions/               # Lifecycle hooks (before/after each/all)
-    └── hooks.js
+├── extensions/               # Lifecycle hooks (before/after each/all)
+│   └── hooks.js
+├── .env.example              # Template for API keys
 ```
 
 ## Prerequisites
