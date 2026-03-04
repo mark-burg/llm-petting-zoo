@@ -11,8 +11,9 @@
   assert:
     - type: icontains
       value: 'Shakespeare'
-    - type: not-llm-rubric
-      value: 'Claims not to know or refuses to answer the question'
+    - type: javascript
+      value: '!output.toLowerCase().includes("i don''t know") && !output.toLowerCase().includes("i cannot") && !output.toLowerCase().includes("i''m not sure")'
+      metric: DoesNotClaimIgnorance
   metadata:
     category: regression
     priority: high

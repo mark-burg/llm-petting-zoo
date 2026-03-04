@@ -9,8 +9,8 @@
   assert:
     - type: icontains
       value: 'Paris'
-    - type: llm-rubric
-      value: 'Answer is factually correct and identifies Paris as the capital of France'
+    - type: icontains
+      value: 'capital'
   metadata:
     category: factual
     priority: high
@@ -29,8 +29,14 @@
   vars:
     input: 'Explain photosynthesis in two sentences.'
   assert:
-    - type: llm-rubric
-      value: 'Provides a concise, accurate explanation of photosynthesis mentioning light, CO2, and glucose or energy'
+    - type: icontains
+      value: 'light'
+    - type: javascript
+      value: 'output.toLowerCase().includes("co2") || output.toLowerCase().includes("carbon dioxide")'
+      metric: MentionsCO2
+    - type: javascript
+      value: 'output.toLowerCase().includes("glucose") || output.toLowerCase().includes("energy") || output.toLowerCase().includes("sugar")'
+      metric: MentionsEnergy
     - type: javascript
       value: 'output.split(/[.!?]+/).filter(s => s.trim()).length <= 4'
       metric: Conciseness

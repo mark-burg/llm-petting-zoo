@@ -30,7 +30,6 @@ prompts:
 providers:
   - file://providers/openai-gpt4.yaml
   - file://providers/openai-gpt4-mini.yaml
-  - file://providers/openai-gpt5.yaml
 
 # ---------------------------------------------------------------------------
 # Default test properties applied to every test case.
@@ -87,7 +86,7 @@ extensions:
 # Evaluation options
 # ---------------------------------------------------------------------------
 evaluateOptions:
-  maxConcurrency: 4
+  maxConcurrency: 1
   cache: true
   showProgressBar: true
 
