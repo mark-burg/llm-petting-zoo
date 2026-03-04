@@ -57,8 +57,10 @@ assertionTemplates:
     metric: HallucinatedLinks
 
   noAIReference:
-    type: llm-rubric
-    value: 'Does not describe itself as an AI, model, or chatbot'
+    # Deterministic heuristic — no extra LLM grading call.
+    # Add more phrases as needed.
+    type: javascript
+    value: "!/\\b(i am an? (ai|model|chatbot|language model)|as an ai|i'm an? (ai|model|chatbot))\\b/i.test(output)"
     metric: Identity
 
 # ---------------------------------------------------------------------------

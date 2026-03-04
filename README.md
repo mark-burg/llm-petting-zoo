@@ -11,8 +11,8 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   ├── baseline.txt          # Simple, minimal prompt
 │   └── enhanced.txt          # Detailed prompt with instructions
 ├── providers/                # Model/provider configs (one per file)
-│   ├── openai-gpt4.yaml     # GPT-4.1
-│   └── openai-gpt4-mini.yaml# GPT-4.1-mini
+│   ├── openai-gpt4-mini.yaml# GPT-4.1-mini
+│   └── meta-llama-3.1-8b.yaml# Meta-Llama-3.1-8B-Instruct
 ├── tests/                    # Test cases organised by category
 │   ├── basic_functionality.yaml
 │   ├── edge_cases.yaml
