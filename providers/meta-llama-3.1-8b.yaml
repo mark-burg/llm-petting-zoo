@@ -1,0 +1,4 @@
+id: openai:Meta-Llama-3.1-8B-Instruct
+label: Meta-Llama-3.1-8B-Instruct
+config:
+  temperature: 0

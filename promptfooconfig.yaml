@@ -28,8 +28,8 @@ prompts:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-providers-from-separate-files
 # ---------------------------------------------------------------------------
 providers:
-  - file://providers/openai-gpt4.yaml
   - file://providers/openai-gpt4-mini.yaml
+  - file://providers/meta-llama-3.1-8b.yaml
 
 # ---------------------------------------------------------------------------
 # Default test properties applied to every test case.
