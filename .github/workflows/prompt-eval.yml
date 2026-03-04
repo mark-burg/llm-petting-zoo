@@ -1,0 +1,40 @@
+name: 'Prompt Evaluation'
+
+on:
+  pull_request:
+    paths:
+      - 'prompts/**'
+      - 'providers/**'
+      - 'tests/**'
+      - 'scenarios/**'
+      - 'assertions/**'
+      - 'promptfooconfig.yaml'
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up promptfoo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.promptfoo/cache
+            .promptfoo-cache
+          key: ${{ runner.os }}-promptfoo-${{ hashFiles('prompts/**') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-promptfoo-${{ hashFiles('prompts/**') }}-
+            ${{ runner.os }}-promptfoo-
+
+      - name: Run promptfoo evaluation
+        uses: promptfoo/promptfoo-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          config: 'promptfooconfig.yaml'
+          cache-path: '.promptfoo-cache'
+          no-share: true
