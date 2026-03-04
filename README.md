@@ -132,8 +132,9 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 
 ## Documentation
 
-- [promptfoo Getting Started](https://www.promptfoo.dev/docs/getting-started/)
-- [Configuration Guide](https://www.promptfoo.dev/docs/configuration/guide/)
-- [Configuration Reference](https://www.promptfoo.dev/docs/configuration/reference/)
-- [Assertions & Metrics](https://www.promptfoo.dev/docs/configuration/expected-outputs/)
-- [Scenarios](https://www.promptfoo.dev/docs/configuration/scenarios/)
+- [promptfoo Getting Started](https://www.promptfoo.dev/docs/getting-started/) — installation, first eval, basic config
+- [Configuration Guide](https://www.promptfoo.dev/docs/configuration/guide/) — prompts, providers, tests, vars, transforms, Nunjucks templates, CSV/Sheets
+- [Configuration Reference](https://www.promptfoo.dev/docs/configuration/reference/) — full type definitions for all config fields and evaluation I/O
+- [Modular Configs](https://www.promptfoo.dev/docs/configuration/modular-configs/) — splitting configs across files, JS/TS configs, env-specific overrides
+- [Assertions & Metrics](https://www.promptfoo.dev/docs/configuration/expected-outputs/) — assertion types (deterministic & model-graded), weights, named/derived metrics
+- [Scenarios](https://www.promptfoo.dev/docs/configuration/scenarios/) — data × test matrices using shared variable sets
