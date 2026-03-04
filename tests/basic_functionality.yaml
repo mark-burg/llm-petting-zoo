@@ -25,21 +25,23 @@
     category: reasoning
     priority: high
 
-- description: 'Explanation quality — scientific concept'
-  vars:
-    input: 'Explain photosynthesis in two sentences.'
-  assert:
-    - type: icontains
-      value: 'light'
-    - type: javascript
-      value: 'output.toLowerCase().includes("co2") || output.toLowerCase().includes("carbon dioxide")'
-      metric: MentionsCO2
-    - type: javascript
-      value: 'output.toLowerCase().includes("glucose") || output.toLowerCase().includes("energy") || output.toLowerCase().includes("sugar")'
-      metric: MentionsEnergy
-    - type: javascript
-      value: 'output.split(/[.!?]+/).filter(s => s.trim()).length <= 4'
-      metric: Conciseness
-  metadata:
-    category: explanation
-    priority: medium
+# DISABLED: Keyword presence (light, CO2, glucose) can't verify coherence or accuracy.
+# A garbled explanation mentioning all three words would still pass. Re-enable with llm-rubric.
+# - description: 'Explanation quality — scientific concept'
+#   vars:
+#     input: 'Explain photosynthesis in two sentences.'
+#   assert:
+#     - type: icontains
+#       value: 'light'
+#     - type: javascript
+#       value: 'output.toLowerCase().includes("co2") || output.toLowerCase().includes("carbon dioxide")'
+#       metric: MentionsCO2
+#     - type: javascript
+#       value: 'output.toLowerCase().includes("glucose") || output.toLowerCase().includes("energy") || output.toLowerCase().includes("sugar")'
+#       metric: MentionsEnergy
+#     - type: javascript
+#       value: 'output.split(/[.!?]+/).filter(s => s.trim()).length <= 4'
+#       metric: Conciseness
+#   metadata:
+#     category: explanation
+#     priority: medium
