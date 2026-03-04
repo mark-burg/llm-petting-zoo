@@ -1,4 +1,4 @@
-# LLM Petting Zoo — Prompt & Model Evaluation Suite
+# LLM Petting Zoo
 
 A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and comparing how different LLM models perform across various prompts.
 
@@ -30,7 +30,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ## Prerequisites
 
 - **Node.js** ≥ 18
-- A **GitHub Personal Access Token** with `models:read` permission — create one at [github.com/settings/tokens](https://github.com/settings/tokens)
+- Some way to call the LLM APIs for the models under test (just add them in `providers/`). Note that I'm using GitHub's free models which are subject to rate limiting and usage caps. This directly results in a few different sacrifices in this project: keeping the test suite small, rarely utilizing concurrency, and ommitting tests that relied on llm-rubric grading.
 
 ## Quick Start
 
