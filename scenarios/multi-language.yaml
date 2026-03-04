@@ -1,0 +1,36 @@
+# =============================================================================
+# Scenario: Multi-Language Translation
+# Tests whether models can translate common phrases into multiple languages.
+# The 'config' array provides per-language variable sets; 'tests' are run for
+# each set, creating a matrix of (language × phrase) evaluations.
+# =============================================================================
+
+- description: Multi-language translation accuracy
+  config:
+    - vars:
+        language: Spanish
+        expectedHello: 'Hola mundo'
+        expectedGoodbye: 'Adiós'
+    - vars:
+        language: French
+        expectedHello: 'Bonjour le monde'
+        expectedGoodbye: 'Au revoir'
+    - vars:
+        language: German
+        expectedHello: 'Hallo Welt'
+        expectedGoodbye: 'Auf Wiedersehen'
+  tests:
+    - description: 'Translate "Hello world" into {{language}}'
+      vars:
+        input: 'Translate "Hello world" into {{language}}.'
+      assert:
+        - type: similar
+          value: '{{expectedHello}}'
+          threshold: 0.85
+    - description: 'Translate "Goodbye" into {{language}}'
+      vars:
+        input: 'Translate "Goodbye" into {{language}}.'
+      assert:
+        - type: similar
+          value: '{{expectedGoodbye}}'
+          threshold: 0.85

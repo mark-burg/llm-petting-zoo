@@ -1,0 +1,39 @@
+# =============================================================================
+# Basic Functionality Tests
+# Core happy-path test cases for general knowledge and reasoning.
+# =============================================================================
+
+- description: 'Factual knowledge — capital city'
+  vars:
+    input: 'What is the capital of France?'
+  assert:
+    - type: icontains
+      value: 'Paris'
+    - type: llm-rubric
+      value: 'Answer is factually correct and identifies Paris as the capital of France'
+  metadata:
+    category: factual
+    priority: high
+
+- description: 'Arithmetic reasoning'
+  vars:
+    input: 'What is 15 multiplied by 23?'
+  assert:
+    - type: contains
+      value: '345'
+  metadata:
+    category: reasoning
+    priority: high
+
+- description: 'Explanation quality — scientific concept'
+  vars:
+    input: 'Explain photosynthesis in two sentences.'
+  assert:
+    - type: llm-rubric
+      value: 'Provides a concise, accurate explanation of photosynthesis mentioning light, CO2, and glucose or energy'
+    - type: javascript
+      value: 'output.split(/[.!?]+/).filter(s => s.trim()).length <= 4'
+      metric: Conciseness
+  metadata:
+    category: explanation
+    priority: medium

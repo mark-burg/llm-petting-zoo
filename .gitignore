@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# promptfoo local storage & cache
+.promptfoo/
+
+# Environment variables (contains API keys)
+.env
+.env.local
+
+# Evaluation outputs
+output/
+*.html
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.idea/
+*.swp
+*.swo

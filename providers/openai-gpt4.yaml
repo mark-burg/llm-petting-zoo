@@ -1,0 +1,4 @@
+id: openai:gpt-4.1
+label: gpt-4.1
+config:
+  temperature: 0

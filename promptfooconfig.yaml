@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+# =============================================================================
+# promptfoo Configuration — LLM Bullshit Detector
+#
+# Evaluates multiple prompts against multiple models to compare quality,
+# accuracy, safety, and cost across a matrix of (prompt × provider × test).
+#
+# Docs: https://www.promptfoo.dev/docs/configuration/guide/
+# =============================================================================
+
+description: 'LLM prompt & model comparison evaluation'
+
+tags:
+  project: llm-bullshit
+  stage: development
+
+# ---------------------------------------------------------------------------
+# Prompts
+# Each file uses {{input}} as the variable placeholder.
+# ---------------------------------------------------------------------------
+prompts:
+  - file://prompts/baseline.txt
+  - file://prompts/enhanced.txt
+
+# ---------------------------------------------------------------------------
+# Providers (targets)
+# Imported from separate files for modularity.
+# Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-providers-from-separate-files
+# ---------------------------------------------------------------------------
+providers:
+  - file://providers/openai-gpt4.yaml
+  - file://providers/openai-gpt4-mini.yaml
+
+# ---------------------------------------------------------------------------
+# Default test properties applied to every test case.
+# Docs: https://www.promptfoo.dev/docs/configuration/guide/#default-test-cases
+# ---------------------------------------------------------------------------
+defaultTest:
+  assert:
+    # Every response must complete within 30 seconds
+    - type: latency
+      threshold: 30000
+    # Every response must not be a refusal (unless the test expects one)
+    - type: cost
+      threshold: 0.10 # USD — flag anything over $0.10 per call
+
+# ---------------------------------------------------------------------------
+# Assertion templates — reusable via $ref
+# Docs: https://www.promptfoo.dev/docs/configuration/guide/#yaml-references
+# ---------------------------------------------------------------------------
+assertionTemplates:
+  noHallucinatedLinks:
+    type: javascript
+    value: file://assertions/custom_assert.js
+    metric: HallucinatedLinks
+
+  noAIReference:
+    type: llm-rubric
+    value: 'Does not describe itself as an AI, model, or chatbot'
+    metric: Identity
+
+# ---------------------------------------------------------------------------
+# Tests — loaded from external YAML files via globs
+# Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-tests-from-separate-files
+# ---------------------------------------------------------------------------
+tests:
+  - file://tests/basic_functionality.yaml
+  - file://tests/edge_cases.yaml
+  - file://tests/regression.yaml
+
+# ---------------------------------------------------------------------------
+# Scenarios — grouped data × test matrices
+# Docs: https://www.promptfoo.dev/docs/configuration/scenarios/
+# ---------------------------------------------------------------------------
+scenarios:
+  - file://scenarios/multi-language.yaml
+
+# ---------------------------------------------------------------------------
+# Extensions — lifecycle hooks (beforeAll, afterAll, beforeEach, afterEach)
+# Docs: https://www.promptfoo.dev/docs/configuration/reference/#extension-hooks
+# ---------------------------------------------------------------------------
+extensions:
+  - file://extensions/hooks.js:extensionHook
+
+# ---------------------------------------------------------------------------
+# Evaluation options
+# ---------------------------------------------------------------------------
+evaluateOptions:
+  maxConcurrency: 4
+  cache: true
+  showProgressBar: true
+
+# ---------------------------------------------------------------------------
+# Command-line option defaults
+# ---------------------------------------------------------------------------
+commandLineOptions:
+  envPath: .env
+  verbose: false

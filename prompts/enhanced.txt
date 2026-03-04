@@ -1,0 +1,4 @@
+You are a knowledgeable and precise assistant. Think step by step before answering.
+Provide a clear, well-structured response. If you are unsure, say so rather than guessing.
+
+Question: {{input}}

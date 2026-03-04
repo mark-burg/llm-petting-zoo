@@ -1,0 +1,23 @@
+{
+  "name": "llm-bullshit",
+  "version": "1.0.0",
+  "description": "Prompt & model comparison evaluation suite powered by promptfoo",
+  "scripts": {
+    "eval": "promptfoo eval",
+    "eval:view": "promptfoo eval && promptfoo view",
+    "view": "promptfoo view",
+    "cache:clear": "promptfoo cache clear"
+  },
+  "keywords": [
+    "promptfoo",
+    "llm",
+    "evaluation",
+    "testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "promptfoo": "^0.120.26"
+  }
+}
