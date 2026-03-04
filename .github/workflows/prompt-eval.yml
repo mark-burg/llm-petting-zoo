@@ -32,8 +32,10 @@ jobs:
 
       - name: Run promptfoo evaluation
         uses: promptfoo/promptfoo-action@v1
+        env:
+          OPENAI_API_KEY: ${{ secrets.GH_MODELS_PAT }}
+          OPENAI_BASE_URL: https://models.github.ai/inference/v1
         with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config: 'promptfooconfig.yaml'
           cache-path: '.promptfoo-cache'
