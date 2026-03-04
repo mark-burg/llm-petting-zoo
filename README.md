@@ -1,4 +1,4 @@
-# LLM Bullshit — Prompt & Model Evaluation Suite
+# LLM Petting Zoo — Prompt & Model Evaluation Suite
 
 A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and comparing how different LLM models perform across various prompts.
 

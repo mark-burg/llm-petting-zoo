@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
 # =============================================================================
-# promptfoo Configuration — LLM Bullshit Detector
+# promptfoo Configuration — LLM Petting Zoo
 #
 # Evaluates multiple prompts against multiple models to compare quality,
 # accuracy, safety, and cost across a matrix of (prompt × provider × test).
@@ -11,7 +11,7 @@
 description: 'LLM prompt & model comparison evaluation'
 
 tags:
-  project: llm-bullshit
+  project: llm-petting-zoo
   stage: development
 
 # ---------------------------------------------------------------------------
