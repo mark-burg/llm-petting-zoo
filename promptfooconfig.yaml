@@ -67,9 +67,7 @@ assertionTemplates:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-tests-from-separate-files
 # ---------------------------------------------------------------------------
 tests:
-  - file://tests/basic_functionality.yaml
-  - file://tests/edge_cases.yaml
-  - file://tests/regression.yaml
+  - file://tests/*.yaml
 
 # ---------------------------------------------------------------------------
 # Scenarios — grouped data × test matrices
