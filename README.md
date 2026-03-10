@@ -13,13 +13,16 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   ├── baseline.txt          # Simple, minimal prompt
 │   └── enhanced.txt          # Detailed prompt with instructions
 ├── providers/                # Model/provider configs (one per file)
-│   ├── openai-gpt4-mini.yaml# GPT-4.1-mini
-│   └── meta-llama-3.1-8b.yaml# Meta-Llama-3.1-8B-Instruct
+│   ├── content-filter-safe.js   # Shared custom provider wrapper
+│   ├── openai-gpt4-mini.yaml    # GPT-4.1-mini (GitHub Models)
+│   ├── meta-llama-3.1-8b.yaml  # Meta-Llama-3.1-8B-Instruct (GitHub Models)
+│   ├── openrouter-claude-3.5-haiku.yaml  # Claude 3.5 Haiku (OpenRouter)
+│   └── openrouter-gpt-4o.yaml  # GPT-4o (OpenRouter)
 ├── tests/                    # Test cases organised by domain
 │   ├── knowledge.yaml        # Factual recall
 │   ├── reasoning.yaml        # Applied reasoning & arithmetic
 │   ├── robustness.yaml       # Input-handling edge cases
-│   └── safety.yaml           # Harm/policy refusal
+│   └── safety.yaml           # Harm/policy refusal (not loaded by default)
 ├── scenarios/                # Grouped data × test matrices
 │   └── multi-language.yaml
 ├── assertions/               # Custom JS assertion functions
@@ -34,7 +37,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ## Prerequisites
 
 - **Node.js** ≥ 18
-- Some way to call the LLM APIs for the models under test (just add them in `providers/`). Note that I'm using GitHub's free models which are subject to rate limiting and usage caps — the test suite is kept small and concurrency is set to 1 as a result.
+- API keys for the active providers (see `.env.example`). The default configuration uses OpenRouter (Claude 3.5 Haiku and GPT-4o) and GitHub Models (Meta-Llama-3.1-8B). Both are subject to rate limits, so the test suite is kept small and concurrency is set to 1.
 
 ## Quick Start
 
@@ -128,7 +131,7 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 
 ## Design Notes
 
-**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data (e.g. Meta-Llama via GitHub Models). `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (e.g. GPT-4.1-mini).
+**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data (e.g. Meta-Llama via GitHub Models). `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (e.g. OpenRouter providers).
 
 ## Documentation
 
