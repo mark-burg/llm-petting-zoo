@@ -21,6 +21,7 @@
     "promptfoo": "^0.120.26"
   },
   "dependencies": {
+    "gcp-metadata": "^7.0.1",
     "openai": "^6.25.0"
   }
 }
