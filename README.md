@@ -21,7 +21,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   ├── knowledge.yaml        # Factual recall
 │   ├── reasoning.yaml        # Applied reasoning & arithmetic
 │   ├── robustness.yaml       # Input-handling edge cases
-│   └── safety.yaml           # Harm/policy refusal (not loaded by default)
+│   └── safety.yaml           # Jailbreak, identity honesty, misinformation refusal
 ├── scenarios/                # Grouped data × test matrices
 │   └── multi-language.yaml
 ├── assertions/               # Custom JS assertion functions
