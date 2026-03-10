@@ -46,7 +46,6 @@ jobs:
         uses: promptfoo/promptfoo-action@v1
         continue-on-error: true
         env:
-          GH_MODELS_PAT: ${{ secrets.GH_MODELS_PAT }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

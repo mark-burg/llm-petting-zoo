@@ -1,9 +1,0 @@
-# GPT-4.1-mini via GitHub Models.
-# Requires GH_MODELS_PAT in the environment.
-# The github: provider defaults to apiKeyEnvar: GITHUB_TOKEN; apiKey overrides
-# that so we can use our own env var name.
-id: github:gpt-4.1-mini
-label: gpt-4.1-mini
-config:
-  apiKey: "{{ env.GH_MODELS_PAT }}"
-  temperature: 0

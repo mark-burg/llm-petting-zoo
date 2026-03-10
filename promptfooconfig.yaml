@@ -30,8 +30,8 @@ prompts:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-providers-from-separate-files
 # ---------------------------------------------------------------------------
 providers:
-  # - file://providers/openai-gpt4-mini.yaml
-  - file://providers/meta-llama-3.1-8b.yaml
+  - file://providers/openrouter-gpt-4.1-mini.yaml
+  - file://providers/openrouter-meta-llama-3.1-8b.yaml
   - file://providers/openrouter-claude-3.5-haiku.yaml
   - file://providers/openrouter-gpt-4o.yaml
 
@@ -112,7 +112,7 @@ extensions:
 # Evaluation options
 # ---------------------------------------------------------------------------
 evaluateOptions:
-  maxConcurrency: 1
+  maxConcurrency: 4
   cache: true
   showProgressBar: true
 
