@@ -50,6 +50,7 @@ jobs:
           cache-path: '.promptfoo-cache'
           no-share: true
           working-directory: '.'
+          fail-on-threshold: 80
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
