@@ -7,36 +7,36 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 ```
 ├── .github/
 │   └── workflows/
-│       └── prompt-eval.yml   # CI: runs eval on PRs that touch prompts/tests/providers
-├── promptfooconfig.yaml      # Main config (auto-loaded by promptfoo)
-├── prompts/                  # Prompt templates (use {{input}} variable)
-│   ├── baseline.txt          # Simple, minimal prompt
-│   └── enhanced.txt          # Detailed prompt with instructions
-├── providers/                # Model/provider configs (one per file)
-│   ├── openai-gpt4-mini.yaml    # GPT-4.1-mini (GitHub Models)
-│   ├── meta-llama-3.1-8b.yaml  # Meta-Llama-3.1-8B-Instruct (GitHub Models)
-│   ├── openrouter-claude-3.5-haiku.yaml  # Claude 3.5 Haiku (OpenRouter)
-│   └── openrouter-gpt-4o.yaml  # GPT-4o (OpenRouter)
-├── tests/                    # Test cases organised by domain
-│   ├── knowledge.yaml        # Factual recall
-│   ├── reasoning.yaml        # Applied reasoning & arithmetic
-│   ├── robustness.yaml       # Input-handling edge cases
-│   └── safety.yaml           # Jailbreak, identity honesty, misinformation refusal
-├── scenarios/                # Grouped data × test matrices
+│       └── prompt-eval.yml                 # CI: runs eval on PRs that touch prompts/tests/providers
+├── promptfooconfig.yaml                    # Main config (auto-loaded by promptfoo)
+├── prompts/                                # Prompt templates (use {{input}} variable)
+│   ├── baseline.txt                        # Simple, minimal prompt
+│   └── enhanced.txt                        # Detailed prompt with instructions
+├── providers/                              # Model/provider configs (one per file)
+│   ├── openrouter-gpt-4.1-mini.yaml        # GPT-4.1-mini (OpenRouter)
+│   ├── openrouter-meta-llama-3.1-8b.yaml   # Meta-Llama-3.1-8B-Instruct (OpenRouter)
+│   ├── openrouter-claude-3.5-haiku.yaml    # Claude 3.5 Haiku (OpenRouter)
+│   └── openrouter-gpt-4o.yaml              # GPT-4o (OpenRouter)
+├── tests/                                  # Test cases organised by domain
+│   ├── knowledge.yaml                      # Factual recall
+│   ├── reasoning.yaml                      # Applied reasoning & arithmetic
+│   ├── robustness.yaml                     # Input-handling edge cases
+│   └── safety.yaml                         # Jailbreak, identity honesty, misinformation refusal
+├── scenarios/                              # Grouped data × test matrices
 │   └── multi-language.yaml
-├── assertions/               # Custom JS assertion functions
+├── assertions/                             # Custom JS assertion functions
 │   └── custom_assert.js
-├── transforms/               # Output transform functions
+├── transforms/                             # Output transform functions
 │   └── output_transform.js
-├── extensions/               # Lifecycle hooks (before/after each/all)
+├── extensions/                             # Lifecycle hooks (before/after each/all)
 │   └── hooks.js
-├── .env.example              # Template for API keys
+├── .env.example                            # Template for API keys
 ```
 
 ## Prerequisites
 
 - **Node.js** ≥ 18
-- API keys for the active providers (see `.env.example`). The default configuration uses OpenRouter (Claude 3.5 Haiku and GPT-4o) and GitHub Models (Meta-Llama-3.1-8B). Both are subject to rate limits, so the test suite is kept small and concurrency is set to 1.
+- API keys for the active providers (see `.env.example`). The default configuration uses OpenRouter for all providers (GPT-4.1-mini, Meta-Llama-3.1-8B-Instruct, Claude 3.5 Haiku, and GPT-4o). OpenRouter is subject to rate limits, so the test suite is kept small and concurrency is set to 1.
 
 ## Quick Start
 
@@ -130,7 +130,7 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 
 ## Design Notes
 
-**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data (e.g. Meta-Llama via GitHub Models). `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (OpenRouter providers report cost natively).
+**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data. `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (OpenRouter providers report cost natively).
 
 ## Documentation
 
