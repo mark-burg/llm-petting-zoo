@@ -1,0 +1,10 @@
+# OpenRouter — openai/gpt-4o
+# Full-size GPT-4o for quality comparison against gpt-4.1-mini.
+# Requires OPENROUTER_API_KEY in the environment.
+id: providers/content-filter-safe.js
+label: gpt-4o (OpenRouter)
+config:
+  model: openai/gpt-4o
+  temperature: 0
+  apiKeyEnvar: OPENROUTER_API_KEY
+  apiBaseUrl: https://openrouter.ai/api/v1

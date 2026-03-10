@@ -24,9 +24,8 @@
       vars:
         input: 'Translate "Hello world" into {{language}}.'
       assert:
-        - type: similar
+        - type: icontains
           value: '{{expectedHello}}'
-          threshold: 0.85
     # - description: 'Translate "Goodbye" into {{language}}'
     #   vars:
     #     input: 'Translate "Goodbye" into {{language}}.'

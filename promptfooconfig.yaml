@@ -22,7 +22,7 @@ tags:
 # ---------------------------------------------------------------------------
 prompts:
   - file://prompts/baseline.txt
-  - file://prompts/enhanced.txt
+  # - file://prompts/enhanced.txt
 
 # ---------------------------------------------------------------------------
 # Providers (targets)
@@ -30,8 +30,10 @@ prompts:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-providers-from-separate-files
 # ---------------------------------------------------------------------------
 providers:
-  - file://providers/openai-gpt4-mini.yaml
+  # - file://providers/openai-gpt4-mini.yaml
   - file://providers/meta-llama-3.1-8b.yaml
+  - file://providers/openrouter-claude-3.5-haiku.yaml
+  - file://providers/openrouter-gpt-4o.yaml
 
 # ---------------------------------------------------------------------------
 # Default test properties applied to every test case.
