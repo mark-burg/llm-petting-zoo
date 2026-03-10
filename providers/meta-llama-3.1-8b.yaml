@@ -1,9 +1,0 @@
-# Meta-Llama-3.1-8B-Instruct via GitHub Models.
-# Requires GH_MODELS_PAT in the environment.
-# The github: provider defaults to apiKeyEnvar: GITHUB_TOKEN; apiKey overrides
-# that so we can use our own env var name.
-id: github:Meta-Llama-3.1-8B-Instruct
-label: Meta-Llama-3.1-8B-Instruct
-config:
-  apiKey: "{{ env.GH_MODELS_PAT }}"
-  temperature: 0
