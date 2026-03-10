@@ -30,6 +30,7 @@
  *
  * Docs: https://www.promptfoo.dev/docs/configuration/expected-outputs/guardrails/
  *       https://www.promptfoo.dev/docs/providers/custom-api/
+ *
  */
 
 const { OpenAI } = require('openai');
@@ -41,6 +42,8 @@ const { OpenAI } = require('openai');
 function isContentFilterError(err) {
   const status = err && err.status;
   if (status !== 400) return false;
+  const code = err && err.error && err.error.code;
+  if (code === 'content_filter') return true;
   const msg = String((err && err.message) || '');
   return /content.{0,40}(filter|management|policy)|filtered due to|triggered azure/i.test(msg);
 }

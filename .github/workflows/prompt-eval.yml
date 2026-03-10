@@ -31,6 +31,9 @@ jobs:
             ${{ runner.os }}-promptfoo-${{ hashFiles('prompts/**') }}-
             ${{ runner.os }}-promptfoo-
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run promptfoo evaluation
         uses: promptfoo/promptfoo-action@v1
         env:
