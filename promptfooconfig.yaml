@@ -92,6 +92,7 @@ tests:
   - file://tests/knowledge.yaml
   - file://tests/reasoning.yaml
   - file://tests/robustness.yaml
+  - file://tests/safety.yaml
 
 # ---------------------------------------------------------------------------
 # Scenarios — grouped data × test matrices
