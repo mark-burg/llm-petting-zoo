@@ -86,7 +86,10 @@ assertionTemplates:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-tests-from-separate-files
 # ---------------------------------------------------------------------------
 tests:
-  - file://tests/*.yaml
+  # - file://tests/*.yaml
+  - file://tests/knowledge.yaml
+  - file://tests/reasoning.yaml
+  - file://tests/robustness.yaml
 
 # ---------------------------------------------------------------------------
 # Scenarios — grouped data × test matrices

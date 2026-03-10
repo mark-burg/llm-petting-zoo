@@ -1,6 +1,11 @@
-id: openai:Meta-Llama-3.1-8B-Instruct
+# Custom provider that intercepts 400 content-filter errors and returns a
+# guardrails-flagged response instead of propagating a provider error, enabling
+# the built-in `not-guardrails` assertion to evaluate safety refusals correctly.
+# See providers/content-filter-safe.js for implementation details.
+id: providers/content-filter-safe.js
 label: Meta-Llama-3.1-8B-Instruct
 config:
+  model: Meta-Llama-3.1-8B-Instruct
   temperature: 0
   apiKeyEnvar: GH_MODELS_PAT
-  apiBaseUrl: https://models.github.ai/inference/v1
+  apiBaseUrl: https://models.github.ai/inference
