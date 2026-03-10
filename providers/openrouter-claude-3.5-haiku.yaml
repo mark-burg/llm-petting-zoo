@@ -1,11 +1,6 @@
 # OpenRouter — anthropic/claude-3-5-haiku
-# Uses the same content-filter-safe wrapper as other providers so that
-# safety assertions (not-guardrails) work consistently across the matrix.
 # Requires OPENROUTER_API_KEY in the environment.
-id: providers/content-filter-safe.js
+id: openrouter:anthropic/claude-3-5-haiku
 label: claude-3.5-haiku (OpenRouter)
 config:
-  model: anthropic/claude-3-5-haiku
   temperature: 0
-  apiKeyEnvar: OPENROUTER_API_KEY
-  apiBaseUrl: https://openrouter.ai/api/v1

@@ -13,7 +13,6 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   ├── baseline.txt          # Simple, minimal prompt
 │   └── enhanced.txt          # Detailed prompt with instructions
 ├── providers/                # Model/provider configs (one per file)
-│   ├── content-filter-safe.js   # Shared custom provider wrapper
 │   ├── openai-gpt4-mini.yaml    # GPT-4.1-mini (GitHub Models)
 │   ├── meta-llama-3.1-8b.yaml  # Meta-Llama-3.1-8B-Instruct (GitHub Models)
 │   ├── openrouter-claude-3.5-haiku.yaml  # Claude 3.5 Haiku (OpenRouter)
@@ -131,7 +130,7 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 
 ## Design Notes
 
-**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data (e.g. Meta-Llama via GitHub Models). `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (e.g. OpenRouter providers).
+**Cost assertion** — The native `type: cost` assertion throws a hard error on providers that do not return cost data (e.g. Meta-Llama via GitHub Models). `defaultTest` uses a `javascript` assertion instead, which reads `context.providerResponse?.cost` and skips gracefully when the field is absent while still enforcing the $0.10 limit on providers that do report cost (OpenRouter providers report cost natively).
 
 ## Documentation
 

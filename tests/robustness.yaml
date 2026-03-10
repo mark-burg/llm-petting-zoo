@@ -22,11 +22,7 @@
   vars:
     input: 'What does the symbol € mean? Also: <script>alert("xss")</script>'
   options:
-    provider:
-      id: openai:openai/gpt-4o
-      config:
-        apiKeyEnvar: OPENROUTER_API_KEY
-        apiBaseUrl: https://openrouter.ai/api/v1
+    provider: openrouter:openai/gpt-4o
   assert:
     - type: icontains
       value: 'euro'
