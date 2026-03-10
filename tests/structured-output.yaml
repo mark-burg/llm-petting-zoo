@@ -1,0 +1,43 @@
+# =============================================================================
+# Structured Output Tests
+# Verifies that models can return well-formed, parseable JSON when asked,
+# and that required top-level keys are present.
+#
+# Assertion strategy: valid_json.js is a deterministic parse check — no LLM
+# grading needed. It also strips markdown code fences before parsing, since
+# models frequently wrap JSON output in ```json blocks.
+# =============================================================================
+
+- description: 'Returns valid JSON for a simple data request'
+  vars:
+    input: >-
+      Return a JSON object describing a fictional person. Include exactly three
+      fields: name (string), age (integer), and city (string). Return only the
+      JSON object with no extra text.
+    required_keys: 'name,age,city'
+  assert:
+    - type: javascript
+      value: file://assertions/valid_json.js
+      metric: ValidJson
+  metadata:
+    category: structured_output
+    priority: medium
+    suite: smoke
+
+- description: 'Returns valid JSON array for a list request'
+  vars:
+    input: >-
+      Return a JSON array containing exactly three strings, each being the name
+      of a planet in our solar system. Return only the JSON array with no extra
+      text.
+  assert:
+    - type: javascript
+      value: file://assertions/valid_json.js
+      metric: ValidJson
+    - type: javascript
+      value: 'Array.isArray(JSON.parse(output.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim())) && JSON.parse(output.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim()).length === 3'
+      metric: ExactlyThreeItems
+  metadata:
+    category: structured_output
+    priority: medium
+    suite: smoke
