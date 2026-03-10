@@ -44,6 +44,7 @@ jobs:
         uses: promptfoo/promptfoo-action@v1
         env:
           GH_MODELS_PAT: ${{ secrets.GH_MODELS_PAT }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config: 'promptfooconfig.yaml'

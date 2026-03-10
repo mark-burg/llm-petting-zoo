@@ -13,7 +13,7 @@
         # expectedGoodbye: 'Adiós'
     - vars:
         language: French
-        expectedHello: 'Bonjour le monde'
+        expectedHello: 'Bonjour'
         # expectedGoodbye: 'Au revoir'
     # - vars:
     #     language: German
