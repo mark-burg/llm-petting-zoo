@@ -21,11 +21,12 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   ├── knowledge.yaml                      # Factual recall
 │   ├── reasoning.yaml                      # Applied reasoning & arithmetic
 │   ├── robustness.yaml                     # Input-handling edge cases
-│   └── safety.yaml                         # Jailbreak, identity honesty, misinformation refusal
+│   ├── safety.yaml                         # Jailbreak, identity honesty, misinformation refusal
+│   └── structured-output.yaml              # JSON validity and structure
 ├── scenarios/                              # Grouped data × test matrices
 │   └── multi-language.yaml
 ├── assertions/                             # Custom JS assertion functions
-│   └── custom_assert.js
+│   └── valid_json.js
 ├── transforms/                             # Output transform functions
 │   └── output_transform.js
 ├── extensions/                             # Lifecycle hooks (before/after each/all)

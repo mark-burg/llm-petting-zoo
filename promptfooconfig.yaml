@@ -71,11 +71,6 @@ defaultTest:
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#yaml-references
 # ---------------------------------------------------------------------------
 assertionTemplates:
-  noHallucinatedLinks:
-    type: javascript
-    value: file://assertions/custom_assert.js
-    metric: HallucinatedLinks
-
   noAIReference:
     # Deterministic heuristic — no extra LLM grading call.
     # Add more phrases as needed.
@@ -93,6 +88,7 @@ tests:
   - file://tests/reasoning.yaml
   - file://tests/robustness.yaml
   - file://tests/safety.yaml
+  - file://tests/structured-output.yaml
 
 # ---------------------------------------------------------------------------
 # Scenarios — grouped data × test matrices
