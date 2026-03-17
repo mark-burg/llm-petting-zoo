@@ -83,10 +83,32 @@ jobs:
         if: always()
         run: python3 scripts/generate-summary.py output.json >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Check artifact files
+        if: always()
+        run: |
+          for f in output.json report.html; do
+            if [ -f "$f" ]; then
+              echo "$f exists ($(wc -c < "$f") bytes)"
+            else
+              echo "$f not found"
+            fi
+          done
+
       - name: Upload evaluation results
+        id: upload-results
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: promptfoo-results
-          path: output.json
+          path: |
+            output.json
+            report.html
           retention-days: 30
+
+      - name: Log upload outcome
+        if: always()
+        run: |
+          echo "Upload outcome: ${{ steps.upload-results.outcome }}"
+          if [ "${{ steps.upload-results.outcome }}" != "success" ]; then
+            echo "Artifact upload failed or was skipped"
+          fi
