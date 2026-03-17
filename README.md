@@ -22,7 +22,8 @@ A [promptfoo](https://www.promptfoo.dev/) project for systematically testing and
 │   ├── reasoning.yaml                      # Applied reasoning & arithmetic
 │   ├── robustness.yaml                     # Input-handling edge cases
 │   ├── safety.yaml                         # Jailbreak, identity honesty, misinformation refusal
-│   └── structured-output.yaml              # JSON validity and structure
+│   ├── structured-output.yaml              # JSON validity and structure
+│   └── suggestibility.yaml                 # Resistance to false premises, pushback, and false authority
 ├── scenarios/                              # Grouped data × test matrices
 │   └── multi-language.yaml
 ├── assertions/                             # Custom JS assertion functions
@@ -68,7 +69,7 @@ Create a new YAML file in `tests/` following this structure:
     - type: contains
       value: 'expected substring'
   metadata:
-    category: knowledge  # knowledge | reasoning | robustness | safety
+    category: knowledge  # knowledge | reasoning | robustness | safety | suggestibility
     priority: medium     # high | medium | low
     suite: smoke         # smoke | regression
 ```
