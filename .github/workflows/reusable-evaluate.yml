@@ -1,0 +1,83 @@
+name: 'Evaluate (Reusable)'
+
+on:
+  workflow_call:
+    inputs:
+      tests:
+        description: 'Comma-separated test names or "all"'
+        type: string
+        default: 'all'
+      providers:
+        description: 'Comma-separated provider keys or "all"'
+        type: string
+        default: 'all'
+      scenarios:
+        description: 'Comma-separated scenario names or "all"'
+        type: string
+        default: 'all'
+      fail-on-threshold:
+        description: 'Minimum pass percentage to consider the run a success'
+        type: number
+        default: 80
+    secrets:
+      openrouter-api-key:
+        required: true
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set up promptfoo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.promptfoo/cache
+            .promptfoo-cache
+          key: ${{ runner.os }}-promptfoo-${{ hashFiles('prompts/**') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-promptfoo-${{ hashFiles('prompts/**') }}-
+            ${{ runner.os }}-promptfoo-
+
+      - name: Generate evaluation config
+        env:
+          TESTS_INPUT: ${{ inputs.tests }}
+          PROVIDERS_INPUT: ${{ inputs.providers }}
+          SCENARIOS_INPUT: ${{ inputs.scenarios }}
+        run: python3 scripts/generate-eval-config.py
+
+      - name: Run promptfoo evaluation
+        uses: promptfoo/promptfoo-action@v1
+        continue-on-error: true
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.openrouter-api-key }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          config: 'promptfooconfig-run.yaml'
+          cache-path: '.promptfoo-cache'
+          no-share: true
+          working-directory: '.'
+          fail-on-threshold: ${{ inputs.fail-on-threshold }}
+
+      - name: Upload evaluation results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: promptfoo-results
+          path: output.json
+          retention-days: 30

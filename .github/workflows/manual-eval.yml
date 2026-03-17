@@ -1,0 +1,42 @@
+name: 'Manual Prompt Evaluation'
+
+on:
+  workflow_dispatch:
+    inputs:
+      tests:
+        description: >
+          Tests to run — comma-separated names or "all".
+          Options: knowledge, reasoning, robustness, safety, structured-output, suggestibility
+        type: string
+        default: 'all'
+        required: false
+      providers:
+        description: >
+          Providers to use — comma-separated keys or "all".
+          Options: gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o
+        type: string
+        default: 'all'
+        required: false
+      scenarios:
+        description: >
+          Scenarios to include — comma-separated names or "all".
+          Options: multi-language
+        type: string
+        default: 'all'
+        required: false
+      fail-on-threshold:
+        description: 'Minimum pass percentage to consider the run a success (0-100)'
+        type: string
+        default: '80'
+        required: false
+
+jobs:
+  evaluate:
+    uses: ./.github/workflows/reusable-evaluate.yml
+    with:
+      tests: ${{ inputs.tests }}
+      providers: ${{ inputs.providers }}
+      scenarios: ${{ inputs.scenarios }}
+      fail-on-threshold: ${{ fromJSON(inputs.fail-on-threshold) }}
+    secrets:
+      openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}
