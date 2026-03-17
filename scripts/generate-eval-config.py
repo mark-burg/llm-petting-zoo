@@ -35,13 +35,31 @@ def parse(raw, known):
     return known if s == 'all' else [x.strip() for x in s.split(',') if x.strip()]
 
 
+def filter_tests_by_suite(test_names, suite):
+    """Load test YAML files and return only cases tagged with *suite*."""
+    filtered = []
+    for name in test_names:
+        path = f'tests/{name}.yaml'
+        with open(path) as fh:
+            cases = yaml.safe_load(fh) or []
+        filtered.extend(
+            case for case in cases
+            if case.get('metadata', {}).get('suite') == suite
+        )
+    return filtered
+
+
 with open('promptfooconfig.yaml') as f:
     cfg = yaml.safe_load(f)
 
-cfg['tests'] = [
-    f'file://tests/{t}.yaml'
-    for t in parse(os.environ['TESTS_INPUT'], KNOWN_TESTS)
-]
+test_names = parse(os.environ['TESTS_INPUT'], KNOWN_TESTS)
+suite = os.environ.get('SUITE_INPUT', '').strip()
+
+if suite:
+    cfg['tests'] = filter_tests_by_suite(test_names, suite)
+else:
+    cfg['tests'] = [f'file://tests/{t}.yaml' for t in test_names]
+
 cfg['providers'] = [
     f'file://providers/openrouter-{p}.yaml'
     for p in parse(os.environ['PROVIDERS_INPUT'], KNOWN_PROVIDERS)

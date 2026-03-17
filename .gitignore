@@ -3,6 +3,7 @@ node_modules/
 
 # promptfoo local storage & cache
 .promptfoo/
+promptfooconfig-run.yaml
 
 # Environment variables (contains API keys)
 .env

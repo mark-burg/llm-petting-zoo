@@ -42,7 +42,7 @@
   metadata:
     category: robustness
     priority: low
-    suite: smoke
+    suite: regression
 
 # DISABLED: Keyword checks can't reliably detect whether the model stayed on-topic
 # vs. just mentioned the word 'water'. Re-enable once llm-rubric is available.

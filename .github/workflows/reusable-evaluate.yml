@@ -19,6 +19,10 @@ on:
         description: 'Minimum pass percentage to consider the run a success'
         type: number
         default: 80
+      suite:
+        description: 'Only run tests tagged with this suite in metadata (e.g. smoke). Empty means run all.'
+        type: string
+        default: ''
     secrets:
       openrouter-api-key:
         required: true
@@ -59,6 +63,7 @@ jobs:
           TESTS_INPUT: ${{ inputs.tests }}
           PROVIDERS_INPUT: ${{ inputs.providers }}
           SCENARIOS_INPUT: ${{ inputs.scenarios }}
+          SUITE_INPUT: ${{ inputs.suite }}
         run: python3 scripts/generate-eval-config.py
 
       - name: Run promptfoo evaluation
