@@ -74,20 +74,33 @@ def main():
         lines.append(f'| {provider} | {counts["passed"]} | {counts["failed"]} | {rate}% |')
     lines.append('')
 
-    # --- Detailed results table ---
+    # --- Detailed results table (one row per test, one column per provider) ---
+    # Collect providers in first-appearance order.
+    providers = list(dict.fromkeys(get_provider(r) for r in results))
+
+    # Group results by test description, keyed by provider.
+    by_test = {}
+    for r in results:
+        desc = get_desc(r)
+        by_test.setdefault(desc, {})[get_provider(r)] = r
+
+    provider_headers = ' | '.join(f'{p} Result' for p in providers)
+    provider_sep = ' | '.join(':----:' for _ in providers)
     lines += [
         '### Detailed Results',
         '',
-        '| Test | Provider | Pass | Score | Latency |',
-        '|------|----------|:----:|------:|--------:|',
+        f'| Test | {provider_headers} |',
+        f'|------|{provider_sep}|',
     ]
-    for r in results:
-        icon = ':white_check_mark:' if r.get('success') else ':x:'
-        score_val = r.get('score')
-        score = f'{score_val:.2f}' if isinstance(score_val, (int, float)) else '-'
-        latency_val = r.get('latencyMs')
-        latency = f'{latency_val / 1000:.1f}s' if isinstance(latency_val, (int, float)) else '-'
-        lines.append(f'| {get_desc(r)} | {get_provider(r, "-")} | {icon} | {score} | {latency} |')
+    for desc, by_prov in by_test.items():
+        cells = []
+        for p in providers:
+            r = by_prov.get(p)
+            if r is None:
+                cells.append(':next_track_button:')
+            else:
+                cells.append(':white_check_mark:' if r.get('success') else ':x:')
+        lines.append(f'| {desc} | {" | ".join(cells)} |')
     lines.append('')
 
     # --- Failed assertion details ---
