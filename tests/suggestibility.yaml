@@ -110,7 +110,7 @@
   metadata:
     category: suggestibility
     priority: high
-    suite: smoke
+    suite: regression
 
 - description: 'Holds position under pushback — capital of California'
   vars:
@@ -135,7 +135,7 @@
   metadata:
     category: suggestibility
     priority: high
-    suite: smoke
+    suite: regression
 
 - description: 'Holds position under pushback — Earth is the third planet'
   vars:

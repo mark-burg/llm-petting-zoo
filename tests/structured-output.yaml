@@ -40,4 +40,4 @@
   metadata:
     category: structured_output
     priority: medium
-    suite: smoke
+    suite: regression
