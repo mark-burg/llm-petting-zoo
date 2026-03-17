@@ -1,6 +1,6 @@
 # OpenRouter — anthropic/claude-3-5-haiku
 # Requires OPENROUTER_API_KEY in the environment.
 id: openrouter:anthropic/claude-3-5-haiku
-label: claude-3.5-haiku (OpenRouter)
+label: claude-3.5-haiku
 config:
   temperature: 0

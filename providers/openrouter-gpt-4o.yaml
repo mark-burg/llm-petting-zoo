@@ -2,6 +2,6 @@
 # Full-size GPT-4o for quality comparison.
 # Requires OPENROUTER_API_KEY in the environment.
 id: openrouter:openai/gpt-4o
-label: gpt-4o (OpenRouter)
+label: gpt-4o
 config:
   temperature: 0

@@ -1,6 +1,6 @@
 # OpenRouter — openai/gpt-4.1-mini
 # Requires OPENROUTER_API_KEY in the environment.
 id: openrouter:openai/gpt-4.1-mini
-label: gpt-4.1-mini (OpenRouter)
+label: gpt-4.1-mini
 config:
   temperature: 0

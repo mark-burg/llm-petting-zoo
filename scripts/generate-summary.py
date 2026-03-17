@@ -13,7 +13,7 @@ import sys
 def get_desc(r):
     """Return a short display description for a result row."""
     return (
-        r.get('description')
+        (r.get('testCase') or {}).get('description')
         or str((r.get('vars') or {}).get('input', ''))[:60]
         or '-'
     )
