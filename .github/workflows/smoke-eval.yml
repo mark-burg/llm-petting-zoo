@@ -1,4 +1,4 @@
-name: 'Smoke Evaluation'
+name: 'Smoke Tests'
 
 on:
   workflow_dispatch:
