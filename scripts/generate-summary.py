@@ -84,7 +84,7 @@ def main():
         desc = get_desc(r)
         by_test.setdefault(desc, {})[get_provider(r)] = r
 
-    provider_headers = ' | '.join(f'{p} Result' for p in providers)
+    provider_headers = ' | '.join(f'{p}<br>Result' for p in providers)
     provider_sep = ' | '.join(':----:' for _ in providers)
     lines += [
         '### Detailed Results',
