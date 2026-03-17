@@ -6,7 +6,8 @@ A [promptfoo](https://www.promptfoo.dev/) project for comparing LLM models acros
 
 ```
 ├── .github/workflows/
-│   ├── prompt-eval.yml         # CI: full eval on PRs touching eval files
+│   ├── smoke-eval.yml          # CI: smoke tests on PRs touching eval files
+│   ├── regression-eval.yml     # Manual trigger: full eval across all providers
 │   ├── manual-eval.yml         # Manual trigger with configurable inputs
 │   └── reusable-evaluate.yml   # Shared job logic
 ├── promptfooconfig.yaml        # Main config
@@ -18,7 +19,8 @@ A [promptfoo](https://www.promptfoo.dev/) project for comparing LLM models acros
 ├── transforms/                 # Output transform functions
 ├── extensions/                 # Lifecycle hooks
 ├── scripts/
-│   └── generate-eval-config.py # Patches config at runtime for manual runs
+│   ├── generate-eval-config.py # Patches config at runtime for manual runs
+│   └── generate-summary.py
 └── .env.example
 ```
 
@@ -69,12 +71,13 @@ Both workflows require an `OPENROUTER_API_KEY` repository secret and share the j
 
 | Workflow | Trigger | Behaviour |
 |---|---|---|
-| `prompt-eval.yml` | PR touching eval files | Full eval; posts results as a PR comment |
+| `smoke-eval.yml` | PR touching eval files (and manual) | Smoke eval across a subset of providers; posts results as a PR comment |
+| `regression-eval.yml` | Manual (`workflow_dispatch`) | Full eval across all providers |
 | `manual-eval.yml` | Manual (`workflow_dispatch`) | Configurable tests, providers, scenarios, and pass threshold |
 
-`manual-eval.yml` inputs: `tests`, `providers`, `scenarios` (comma-separated names or `all`), `fail-on-threshold` (default `80`).
+`manual-eval.yml` inputs: `tests`, `providers`, `scenarios` (comma-separated names), `fail-on-threshold` (default `80`).
 
-## Design Notes
+## Notes
 
 **Cost assertion** — `type: cost` throws on providers that report no cost data. `defaultTest` uses a `javascript` assertion that reads `context.providerResponse?.cost` and skips gracefully when absent, while still enforcing the $0.10 limit where cost is reported.
 
