@@ -4,9 +4,11 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - '.github/workflows/**'
       - 'prompts/**'
       - 'providers/**'
       - 'tests/**'
+      - 'scenarios/**'
       - 'assertions/**'
       - 'promptfooconfig.yaml'
 
