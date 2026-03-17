@@ -89,6 +89,7 @@ tests:
   - file://tests/robustness.yaml
   - file://tests/safety.yaml
   - file://tests/structured-output.yaml
+  - file://tests/suggestibility.yaml
 
 # ---------------------------------------------------------------------------
 # Scenarios — grouped data × test matrices
