@@ -4,25 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       tests:
-        description: >
-          Tests to run — comma-separated names or "all".
-          Options: knowledge, reasoning, robustness, safety, structured-output, suggestibility
+        description: 'Tests to run — comma-separated. Options: knowledge, reasoning, robustness, safety, structured-output, suggestibility'
         type: string
-        default: 'all'
+        default: 'knowledge, reasoning, robustness, safety, structured-output, suggestibility'
         required: false
       providers:
-        description: >
-          Providers to use — comma-separated keys or "all".
-          Options: gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o
+        description: 'Providers to use — comma-separated. Options: gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
         type: string
-        default: 'all'
+        default: 'gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
         required: false
       scenarios:
-        description: >
-          Scenarios to include — comma-separated names or "all".
-          Options: multi-language
+        description: 'Scenarios to include — comma-separated. Options: multi-language'
         type: string
-        default: 'all'
+        default: 'multi-language'
         required: false
       fail-on-threshold:
         description: 'Minimum pass percentage to consider the run a success (0-100)'
@@ -32,6 +26,9 @@ on:
 
 jobs:
   evaluate:
+    permissions:
+      contents: read
+      pull-requests: write
     uses: ./.github/workflows/reusable-evaluate.yml
     with:
       tests: ${{ inputs.tests }}

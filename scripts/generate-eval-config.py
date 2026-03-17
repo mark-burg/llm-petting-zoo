@@ -6,9 +6,14 @@ Reads promptfooconfig.yaml, replaces the three selection keys based on
 environment variables, and writes promptfooconfig-run.yaml.
 
 Environment variables:
-  TESTS_INPUT      Comma-separated test names, or "all"
-  PROVIDERS_INPUT  Comma-separated provider keys, or "all"
-  SCENARIOS_INPUT  Comma-separated scenario names, or "all"
+  TESTS_INPUT      Comma-separated test names.
+                   Options: knowledge, reasoning, robustness, safety,
+                            structured-output, suggestibility
+  PROVIDERS_INPUT  Comma-separated provider keys.
+                   Options: gpt-4.1-mini, meta-llama-3.1-8b,
+                            claude-3.5-haiku, gpt-4o
+  SCENARIOS_INPUT  Comma-separated scenario names.
+                   Options: multi-language
 """
 
 import os

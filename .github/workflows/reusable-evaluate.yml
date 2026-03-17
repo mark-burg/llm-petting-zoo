@@ -4,17 +4,17 @@ on:
   workflow_call:
     inputs:
       tests:
-        description: 'Comma-separated test names or "all"'
+        description: 'Comma-separated test names'
         type: string
-        default: 'all'
+        default: 'knowledge, reasoning, robustness, safety, structured-output, suggestibility'
       providers:
-        description: 'Comma-separated provider keys or "all"'
+        description: 'Comma-separated provider keys'
         type: string
-        default: 'all'
+        default: 'gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
       scenarios:
-        description: 'Comma-separated scenario names or "all"'
+        description: 'Comma-separated scenario names'
         type: string
-        default: 'all'
+        default: 'multi-language'
       fail-on-threshold:
         description: 'Minimum pass percentage to consider the run a success'
         type: number

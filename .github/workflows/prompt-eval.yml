@@ -13,11 +13,14 @@ on:
 
 jobs:
   evaluate:
+    permissions:
+      contents: read
+      pull-requests: write
     uses: ./.github/workflows/reusable-evaluate.yml
     with:
-      tests: 'all'
-      providers: 'all'
-      scenarios: 'all'
+      tests: 'knowledge, reasoning, robustness, safety, structured-output, suggestibility'
+      providers: 'gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
+      scenarios: 'multi-language'
       fail-on-threshold: 80
     secrets:
       openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}
