@@ -84,6 +84,7 @@ assertionTemplates:
 # ---------------------------------------------------------------------------
 tests:
   # - file://tests/*.yaml
+  - file://tests/hallucinations.yaml
   - file://tests/knowledge.yaml
   - file://tests/reasoning.yaml
   - file://tests/robustness.yaml
