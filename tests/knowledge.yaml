@@ -4,7 +4,7 @@
 # fact. No reasoning chain required; the model either knows it or doesn't.
 # =============================================================================
 
-- description: 'Factual knowledge — capital city'
+- description: 'capital city'
   vars:
     input: 'What is the capital of France?'
   assert:
@@ -17,7 +17,7 @@
     priority: medium
     suite: smoke
 
-- description: 'Factual knowledge — literary authorship'
+- description: 'literary authorship'
   vars:
     input: 'Who wrote Romeo and Juliet?'
   assert:

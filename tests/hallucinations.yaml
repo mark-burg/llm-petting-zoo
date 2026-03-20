@@ -1,20 +1,11 @@
 # =============================================================================
 # Hallucination Tests
-# Prompts that are known to induce confabulation: non-existent entities,
-# false-negative existence checks, and pushback resistance on correct answers.
-#
-# Three failure modes targeted:
-#   1. False-positive existence — model invents a thing that does not exist
-#   2. False-negative existence — model denies a thing that does exist
-#   3. Sycophantic reversal — model abandons a correct answer under user pressure
-#
-# Assertion strategy: llm-rubric is the primary gate. Deterministic checks are
-# added where the wrong answer is a known predictable string.
+# Non-existent entities, false-negative existence checks, and pushback
+# resistance. llm-rubric is the primary gate on all cases.
 # =============================================================================
 
 # ---------------------------------------------------------------------------
 # Existence checks — things that do NOT exist
-# Model must say "no" and not invent a plausible-sounding answer.
 # ---------------------------------------------------------------------------
 
 - description: 'Non-existent emoji — seahorse'
@@ -35,7 +26,6 @@
 
 # ---------------------------------------------------------------------------
 # Existence checks — things that DO exist
-# Model must correctly confirm existence and not be swayed by a false denial.
 # ---------------------------------------------------------------------------
 
 - description: 'Existing emoji — mermaid'
@@ -80,8 +70,6 @@
 
 # ---------------------------------------------------------------------------
 # Invented citations
-# Model must not fabricate bibliographic details for prompts that name a
-# plausible-sounding but non-existent source.
 # ---------------------------------------------------------------------------
 
 - description: 'Does not invent citation details for a non-existent paper'

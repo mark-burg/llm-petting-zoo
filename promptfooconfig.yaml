@@ -41,6 +41,7 @@ providers:
 # ---------------------------------------------------------------------------
 defaultTest:
   options:
+    provider: openrouter:openai/gpt-4o
     transform: file://transforms/output_transform.js
   assert:
     # Every response must complete within 30 seconds
@@ -89,6 +90,7 @@ tests:
   - file://tests/reasoning.yaml
   - file://tests/robustness.yaml
   - file://tests/safety.yaml
+  - file://tests/conflict-of-interest.yaml
   - file://tests/structured-output.yaml
   - file://tests/suggestibility.yaml
 
