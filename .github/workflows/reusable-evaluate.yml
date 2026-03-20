@@ -6,7 +6,7 @@ on:
       tests:
         description: 'Comma-separated test names'
         type: string
-        default: 'conflict-of-interest, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
+        default: 'conflict-of-interest, context, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
       providers:
         description: 'Comma-separated provider keys'
         type: string

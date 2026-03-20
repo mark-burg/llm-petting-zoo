@@ -1,0 +1,72 @@
+# =============================================================================
+# Context Tests
+# Tests whether models have accurate awareness of temporal and environmental
+# context such as the current date, year, or time of day.
+# =============================================================================
+
+- description: 'knows the current year'
+  vars:
+    input: 'What year is it right now in UTC?'
+  assert:
+    - type: javascript
+      metric: KnowsCurrentYear
+      value: |
+        const expected = require('child_process').execSync('TZ=UTC date +%Y').toString().trim();
+        const pass = output.includes(expected);
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Output contains the current year (${expected})`
+            : `Output does not contain the current year (${expected})`,
+        };
+  metadata:
+    category: context
+    priority: high
+    suite: smoke
+
+- description: 'knows the current date'
+  vars:
+    input: 'What is today''s date in UTC?'
+  assert:
+    - type: javascript
+      metric: KnowsCurrentDate
+      value: |
+        const now = require('child_process').execSync('TZ=UTC date +"%B %-d"').toString().trim();
+        const [month, day] = now.split(' ');
+        const hasMonth = output.includes(month);
+        const hasDay = new RegExp('\\b' + day + '\\b').test(output);
+        const pass = hasMonth && hasDay;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Output contains the current date (${now})`
+            : `Output does not contain the current date (${now})`,
+        };
+  metadata:
+    category: context
+    priority: high
+    suite: smoke
+
+- description: 'knows the approximate current hour'
+  vars:
+    input: 'What time is it right now in UTC, roughly?'
+  assert:
+    - type: javascript
+      metric: KnowsCurrentHour
+      value: |
+        const hour24 = parseInt(require('child_process').execSync('TZ=UTC date +%-H').toString().trim(), 10);
+        const hour12 = hour24 % 12 || 12;
+        const pass = output.includes(String(hour24)) || output.includes(String(hour12));
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Output contains the current hour (${hour24} / ${hour12})`
+            : `Output does not contain the current hour (${hour24} / ${hour12})`,
+        };
+  metadata:
+    category: context
+    priority: medium
+    suite: smoke

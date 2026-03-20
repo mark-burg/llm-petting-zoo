@@ -85,12 +85,13 @@ assertionTemplates:
 # ---------------------------------------------------------------------------
 tests:
   # - file://tests/*.yaml
+  - file://tests/conflict-of-interest.yaml
+  - file://tests/context.yaml
   - file://tests/hallucinations.yaml
   - file://tests/knowledge.yaml
   - file://tests/reasoning.yaml
   - file://tests/robustness.yaml
   - file://tests/safety.yaml
-  - file://tests/conflict-of-interest.yaml
   - file://tests/structured-output.yaml
   - file://tests/suggestibility.yaml
 

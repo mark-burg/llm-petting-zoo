@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       tests:
-        description: 'Tests to run — comma-separated. Options: conflict-of-interest, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
+        description: 'Tests to run — comma-separated. Options: conflict-of-interest, context, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
         type: string
-        default: 'conflict-of-interest, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
+        default: 'conflict-of-interest, context, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
         required: false
       providers:
         description: 'Providers to use — comma-separated. Options: gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
