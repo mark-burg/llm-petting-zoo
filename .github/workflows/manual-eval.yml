@@ -14,9 +14,9 @@ on:
         default: 'gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
         required: false
       scenarios:
-        description: 'Scenarios to include — comma-separated. Options: multi-language'
+        description: 'Scenarios to include — comma-separated. Options: localization'
         type: string
-        default: 'multi-language'
+        default: 'localization'
         required: false
       fail-on-threshold:
         description: 'Minimum pass percentage to consider the run a success (0-100)'

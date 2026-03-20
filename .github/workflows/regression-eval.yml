@@ -12,7 +12,7 @@ jobs:
     with:
       tests: 'conflict-of-interest, context, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
       providers: 'gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
-      scenarios: 'multi-language'
+      scenarios: 'localization'
       fail-on-threshold: 80
     secrets:
       openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}

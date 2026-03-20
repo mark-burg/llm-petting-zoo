@@ -13,7 +13,7 @@ Environment variables:
                    Options: gpt-4.1-mini, meta-llama-3.1-8b,
                             claude-3.5-haiku, gpt-4o
   SCENARIOS_INPUT  Comma-separated scenario names.
-                   Options: multi-language
+                   Options: localization
   SUITE_INPUT      Optional metadata suite tag to filter test cases by
                    (e.g. smoke). Empty or unset means run all test cases.
 """
@@ -30,7 +30,7 @@ KNOWN_PROVIDERS = [
     'gpt-4.1-mini', 'meta-llama-3.1-8b',
     'claude-3.5-haiku', 'gpt-4o',
 ]
-KNOWN_SCENARIOS = ['multi-language']
+KNOWN_SCENARIOS = ['localization']
 
 
 def parse(raw, known):

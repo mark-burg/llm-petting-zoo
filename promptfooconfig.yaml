@@ -100,7 +100,7 @@ tests:
 # Docs: https://www.promptfoo.dev/docs/configuration/scenarios/
 # ---------------------------------------------------------------------------
 scenarios:
-  - file://scenarios/multi-language.yaml
+  - file://scenarios/localization.yaml
 
 # ---------------------------------------------------------------------------
 # Extensions — lifecycle hooks (beforeAll, afterAll, beforeEach, afterEach)

@@ -14,7 +14,7 @@ on:
       scenarios:
         description: 'Comma-separated scenario names'
         type: string
-        default: 'multi-language'
+        default: 'localization'
       fail-on-threshold:
         description: 'Minimum pass percentage to consider the run a success'
         type: number

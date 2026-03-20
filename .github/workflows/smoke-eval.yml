@@ -21,7 +21,7 @@ jobs:
     with:
       tests: 'conflict-of-interest, context, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
       providers: 'gpt-4.1-mini, claude-3.5-haiku'
-      scenarios: 'multi-language'
+      scenarios: 'localization'
       suite: 'smoke'
       fail-on-threshold: 80
     secrets:
