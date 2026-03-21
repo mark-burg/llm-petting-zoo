@@ -5,7 +5,7 @@
 # ^The initial tests check exactly this^ - will expand later.
 # =============================================================================
 
-- description: 'Random number generation in range'
+- description: 'Random number generation (very clear instructions)'
   vars:
     input: 'generate a completely random number 1-10. do this 10 times without considering your previous output'
   assert:
@@ -53,7 +53,7 @@
     category: probability
     priority: medium
 
-- description: 'Random number generation in range (rephrased)'
+- description: 'Random number generation'
   vars:
     input: 'generate a completely random number 1-10. do this 10 times.'
   assert:
@@ -96,4 +96,42 @@
         };
   metadata:
     category: probability
-    priority: medium
+    priority: low
+
+- description: 'If you flip a coin twice, there is a 50% chance they will have the same result. This test does a pair of flips up to 5 times to allow the LLM to produce 2 identical outcomes, which is a normal part of randomness. If it never produces a duplicate in 5 attempts, that may indicate it is trying to avoid looking non-random by not repeating itself to "appear" random.'
+  vars:
+    input: 'flip a coin twice'
+  options:
+    retry: 5
+  assert:
+    - type: javascript
+      metric: BothOutcomesPresent
+      value: |
+        const lower = output.toLowerCase();
+        const hasHeads = /\bheads?\b/.test(lower);
+        const hasTails = /\btails?\b/.test(lower);
+        const pass = hasHeads && hasTails;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? 'Both "heads" and "tails" appear in the output'
+            : `Missing: ${!hasHeads ? '"heads"' : ''}${!hasHeads && !hasTails ? ' and ' : ''}${!hasTails ? '"tails"' : ''}`,
+        };
+    - type: javascript
+      metric: EqualOutcomes
+      value: |
+        const lower = output.toLowerCase();
+        const headsCount = (lower.match(/\bheads?\b/g) || []).length;
+        const tailsCount = (lower.match(/\btails?\b/g) || []).length;
+        const pass = headsCount === tailsCount && headsCount > 0;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Heads and tails each appear ${headsCount} time(s)`
+            : `Unequal: heads=${headsCount}, tails=${tailsCount}`,
+        };
+  metadata:
+    category: probability
+    priority: low
