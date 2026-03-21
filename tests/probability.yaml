@@ -1,0 +1,99 @@
+# =============================================================================
+# Probability Tests
+# Similar to humans, LLMs will do things when asked for randomness to try to make them look more random.
+# ie: if it's already said "2", it might avoid saying "2" again to not look like it's repeating itself, even though that's a normal part of randomness.
+# ^The initial tests check exactly this^ - will expand later.
+# =============================================================================
+
+- description: 'Random number generation in range'
+  vars:
+    input: 'generate a completely random number 1-10. do this 10 times without considering your previous output'
+  assert:
+    - type: javascript
+      metric: NumbersInRange
+      value: |
+        // Split on the first colon or newline after introductory text to skip
+        // the echoed prompt ("Here are 10 ... between 1 and 10:")
+        const body = output.replace(/^.*?:\s*/s, '');
+        const numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        const allInRange = numbers.every(n => n >= 1 && n <= 10);
+        const pass = numbers.length >= 10 && allInRange;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Found ${numbers.length} numbers, all between 1 and 10`
+            : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
+        };
+    - type: javascript
+      metric: HasDuplicates
+      value: |
+        const body = output.replace(/^.*?:\s*/s, '');
+        // For numbered lists ("1. 8\n2. 4\n..."), extract only the last number on each line
+        const lines = body.trim().split('\n').filter(l => l.trim());
+        let numbers;
+        if (/^\d+\.\s/.test(lines[0] || '')) {
+          numbers = lines.map(l => {
+            const m = l.match(/^\d+\.\s*(\d+)/);
+            return m ? Number(m[1]) : null;
+          }).filter(n => n !== null);
+        } else {
+          numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        }
+        const unique = new Set(numbers);
+        const hasDuplicates = unique.size < numbers.length;
+        return {
+          pass: hasDuplicates,
+          score: hasDuplicates ? 1 : 0,
+          reason: hasDuplicates
+            ? `Good: found duplicates (${numbers.length} numbers, ${unique.size} unique) — expected from random sampling`
+            : `No duplicates found (${numbers.length} numbers, all unique) — suspiciously like a shuffled sequence, not random`,
+        };
+  metadata:
+    category: probability
+    priority: medium
+
+- description: 'Random number generation in range (rephrased)'
+  vars:
+    input: 'generate a completely random number 1-10. do this 10 times.'
+  assert:
+    - type: javascript
+      metric: NumbersInRange
+      value: |
+        const body = output.replace(/^.*?:\s*/s, '');
+        const numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        const allInRange = numbers.every(n => n >= 1 && n <= 10);
+        const pass = numbers.length >= 10 && allInRange;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Found ${numbers.length} numbers, all between 1 and 10`
+            : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
+        };
+    - type: javascript
+      metric: HasDuplicates
+      value: |
+        const body = output.replace(/^.*?:\s*/s, '');
+        const lines = body.trim().split('\n').filter(l => l.trim());
+        let numbers;
+        if (/^\d+\.\s/.test(lines[0] || '')) {
+          numbers = lines.map(l => {
+            const m = l.match(/^\d+\.\s*(\d+)/);
+            return m ? Number(m[1]) : null;
+          }).filter(n => n !== null);
+        } else {
+          numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        }
+        const unique = new Set(numbers);
+        const hasDuplicates = unique.size < numbers.length;
+        return {
+          pass: hasDuplicates,
+          score: hasDuplicates ? 1 : 0,
+          reason: hasDuplicates
+            ? `Good: found duplicates (${numbers.length} numbers, ${unique.size} unique) — expected from random sampling`
+            : `No duplicates found (${numbers.length} numbers, all unique) — suspiciously like a shuffled sequence, not random`,
+        };
+  metadata:
+    category: probability
+    priority: medium
