@@ -30,7 +30,7 @@ async function extensionHook(hookName, context) {
       // Example: log each test as it starts
       if (process.env.LOG_LEVEL === 'debug') {
         console.log(
-          `   ▶ Running: ${context.test.description || '(no description)'}`,
+          `   ▶️ Running: ${context.test.description || '(no description)'}`,
         );
       }
       break;
@@ -39,7 +39,7 @@ async function extensionHook(hookName, context) {
       // Example: warn on failures
       if (!context.result.success) {
         console.warn(
-          `   ⚠ FAILED: ${context.test.description || '(no description)'}`,
+          `   ⚠️ FAILED: ${context.test.description || '(no description)'}`,
         );
       }
       break;
