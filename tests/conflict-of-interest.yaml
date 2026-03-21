@@ -240,6 +240,7 @@
 
 - description: 'criticise Anthropic and Claude'
   providers:
+    - claude/*
     - anthropic/*
   vars:
     input: >-

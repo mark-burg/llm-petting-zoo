@@ -1,0 +1,133 @@
+# =============================================================================
+# Probability Tests
+# Similar to humans, LLMs will do things when asked for randomness to try to make them look more random.
+# ie: if it's already said "2", it might avoid saying "2" again to not look like it's repeating itself, even though that's a normal part of randomness.
+# ^The initial tests check exactly this^ - will expand later.
+# =============================================================================
+
+- description: 'Random number generation (very clear instructions)'
+  vars:
+    input: 'generate a completely random number 1-10. do this 10 times without considering your previous output'
+  assert:
+    - type: javascript
+      metric: NumbersInRange
+      value: |
+        // Split on the first colon or newline after introductory text to skip
+        // the echoed prompt ("Here are 10 ... between 1 and 10:")
+        const body = output.replace(/^.*?:\s*/s, '');
+        const numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        const allInRange = numbers.every(n => n >= 1 && n <= 10);
+        const pass = numbers.length >= 10 && allInRange;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Found ${numbers.length} numbers, all between 1 and 10`
+            : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
+        };
+    - type: javascript
+      metric: HasDuplicates
+      value: |
+        const body = output.replace(/^.*?:\s*/s, '');
+        // For numbered lists ("1. 8\n2. 4\n..."), extract only the last number on each line
+        const lines = body.trim().split('\n').filter(l => l.trim());
+        let numbers;
+        if (/^\d+\.\s/.test(lines[0] || '')) {
+          numbers = lines.map(l => {
+            const m = l.match(/^\d+\.\s*(\d+)/);
+            return m ? Number(m[1]) : null;
+          }).filter(n => n !== null);
+        } else {
+          numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        }
+        const unique = new Set(numbers);
+        const hasDuplicates = unique.size < numbers.length;
+        return {
+          pass: hasDuplicates,
+          score: hasDuplicates ? 1 : 0,
+          reason: hasDuplicates
+            ? `Good: found duplicates (${numbers.length} numbers, ${unique.size} unique) — expected from random sampling`
+            : `No duplicates found (${numbers.length} numbers, all unique) — suspiciously like a shuffled sequence, not random`,
+        };
+  metadata:
+    category: probability
+    priority: medium
+
+- description: 'Random number generation'
+  vars:
+    input: 'generate a completely random number 1-10. do this 10 times.'
+  assert:
+    - type: javascript
+      metric: NumbersInRange
+      value: |
+        const body = output.replace(/^.*?:\s*/s, '');
+        const numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        const allInRange = numbers.every(n => n >= 1 && n <= 10);
+        const pass = numbers.length >= 10 && allInRange;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Found ${numbers.length} numbers, all between 1 and 10`
+            : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
+        };
+    - type: javascript
+      metric: HasDuplicates
+      value: |
+        const body = output.replace(/^.*?:\s*/s, '');
+        const lines = body.trim().split('\n').filter(l => l.trim());
+        let numbers;
+        if (/^\d+\.\s/.test(lines[0] || '')) {
+          numbers = lines.map(l => {
+            const m = l.match(/^\d+\.\s*(\d+)/);
+            return m ? Number(m[1]) : null;
+          }).filter(n => n !== null);
+        } else {
+          numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
+        }
+        const unique = new Set(numbers);
+        const hasDuplicates = unique.size < numbers.length;
+        return {
+          pass: hasDuplicates,
+          score: hasDuplicates ? 1 : 0,
+          reason: hasDuplicates
+            ? `Good: found duplicates (${numbers.length} numbers, ${unique.size} unique) — expected from random sampling`
+            : `No duplicates found (${numbers.length} numbers, all unique) — suspiciously like a shuffled sequence, not random`,
+        };
+  metadata:
+    category: probability
+    priority: low
+
+- description: 'If you flip a coin twice, there is a 50% chance they will have the same result. This test does a pair of flips up to 5 times to allow the LLM to produce 2 identical outcomes, which is a normal part of randomness. If it never produces a duplicate in 5 attempts, that may indicate it is trying to avoid looking non-random by not repeating itself to "appear" random.'
+  vars:
+    input: 'Simulate flipping a coin two times and report the result for each flip, in order. Only give the results.'
+  options:
+    retry: 5
+  assert:
+    - type: javascript
+      metric: BothSame
+      value: |
+        // Try to extract two coin flip results from the output
+        const lower = output.toLowerCase();
+        // Look for two words: heads/tails, or H/T, possibly separated by comma, space, or 'and'
+        const match = lower.match(/\b(heads?|tails?|h|t)\b[ ,]*(and)?[ ,]*(heads?|tails?|h|t)\b/);
+        if (!match) {
+          return {
+            pass: false,
+            score: 0,
+            reason: 'Could not extract two coin flip results from output',
+          };
+        }
+        const first = match[1][0] === 'h' ? 'H' : 'T';
+        const second = match[3][0] === 'h' ? 'H' : 'T';
+        const pass = first === second;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Both flips are the same: ${first}${second}`
+            : `Flips are different: ${first}${second}`,
+        };
+  metadata:
+    category: probability
+    priority: low

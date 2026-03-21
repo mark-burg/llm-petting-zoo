@@ -11,6 +11,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for comparing LLM models acros
 │   ├── manual-eval.yml         # Manual trigger with configurable inputs
 │   └── reusable-evaluate.yml   # Shared job logic
 ├── promptfooconfig.yaml        # Main config
+├── promptfooconfig-run.yaml    # Runtime config patched by generate-eval-config.py
 ├── prompts/                    # Prompt templates (use {{input}} as placeholder)
 ├── providers/                  # One YAML file per model
 ├── tests/                      # Test cases by domain (knowledge, reasoning, safety, ...)
@@ -67,7 +68,7 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 
 ## CI / CD
 
-Both workflows require an `OPENROUTER_API_KEY` repository secret and share the job logic in `reusable-evaluate.yml`.
+All workflows require an `OPENROUTER_API_KEY` repository secret and share the job logic in `reusable-evaluate.yml`.
 
 | Workflow | Trigger | Behaviour |
 |---|---|---|
