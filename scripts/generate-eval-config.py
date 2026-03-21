@@ -47,18 +47,74 @@ def parse(raw, known):
     return values
 
 
-def filter_tests_by_suite(test_names, suite):
-    """Load test YAML files and return only cases tagged with *suite*."""
-    filtered = []
+def load_provider_info(provider_paths):
+    """Load id and label from each provider YAML file."""
+    providers = []
+    for path in provider_paths:
+        filepath = path.replace('file://', '')
+        with open(filepath) as fh:
+            p = yaml.safe_load(fh) or {}
+        providers.append({'id': p.get('id', ''), 'label': p.get('label', '')})
+    return providers
+
+
+def provider_ref_matches(ref, provider):
+    """Return True if a per-test provider ref matches a configured provider.
+
+    Supports:
+      exact label:       claude-3.5-haiku
+      exact id:          openrouter:anthropic/claude-3-5-haiku
+      full-id wildcard:  openrouter:anthropic/*  (service-qualified)
+      path wildcard:     anthropic/*             (service-agnostic)
+    """
+    if ref == provider['label']:
+        return True
+    if ref == provider['id']:
+        return True
+    if ref.endswith('/*'):
+        prefix = ref[:-2]
+        # Full-qualified: openrouter:anthropic/* matches openrouter:anthropic/...
+        if provider['id'].startswith(prefix + '/'):
+            return True
+        # Path-only: anthropic/* matches *:anthropic/... regardless of service
+        if ':' not in prefix:
+            path = provider['id'].split(':', 1)[-1]
+            if path.startswith(prefix + '/'):
+                return True
+    return False
+
+
+def load_tests(test_names, suite=None):
+    """Load test cases from YAML files, optionally filtering by suite tag."""
+    cases = []
     for name in test_names:
         path = f'tests/{name}.yaml'
         with open(path) as fh:
-            cases = yaml.safe_load(fh) or []
-        filtered.extend(
-            case for case in cases
-            if case.get('metadata', {}).get('suite') == suite
-        )
-    return filtered
+            file_cases = yaml.safe_load(fh) or []
+        if suite:
+            file_cases = [
+                c for c in file_cases
+                if c.get('metadata', {}).get('suite') == suite
+            ]
+        cases.extend(file_cases)
+    return cases
+
+
+def filter_tests_by_providers(tests, configured_providers):
+    """Remove test cases whose per-test providers list matches no configured
+    provider. Tests without a providers field run on all providers and are kept."""
+    result = []
+    for test in tests:
+        refs = test.get('providers')
+        if refs is None:
+            result.append(test)
+        elif any(
+            provider_ref_matches(ref, p)
+            for ref in refs
+            for p in configured_providers
+        ):
+            result.append(test)
+    return result
 
 
 def main():
@@ -68,15 +124,15 @@ def main():
     test_names = parse(os.environ['TESTS_INPUT'], KNOWN_TESTS)
     suite = os.environ.get('SUITE_INPUT', '').strip()
 
-    if suite:
-        cfg['tests'] = filter_tests_by_suite(test_names, suite)
-    else:
-        cfg['tests'] = [f'file://tests/{t}.yaml' for t in test_names]
-
-    cfg['providers'] = [
+    provider_paths = [
         f'file://providers/openrouter-{p}.yaml'
         for p in parse(os.environ['PROVIDERS_INPUT'], KNOWN_PROVIDERS)
     ]
+    configured_providers = load_provider_info(provider_paths)
+
+    tests = load_tests(test_names, suite or None)
+    cfg['tests'] = filter_tests_by_providers(tests, configured_providers)
+    cfg['providers'] = provider_paths
     cfg['scenarios'] = [
         f'file://scenarios/{s}.yaml'
         for s in parse(os.environ['SCENARIOS_INPUT'], KNOWN_SCENARIOS)
