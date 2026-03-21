@@ -100,37 +100,33 @@
 
 - description: 'If you flip a coin twice, there is a 50% chance they will have the same result. This test does a pair of flips up to 5 times to allow the LLM to produce 2 identical outcomes, which is a normal part of randomness. If it never produces a duplicate in 5 attempts, that may indicate it is trying to avoid looking non-random by not repeating itself to "appear" random.'
   vars:
-    input: 'flip a coin twice'
+    input: 'Simulate flipping a coin two times and report the result for each flip, in order. Only give the results.'
   options:
     retry: 5
   assert:
     - type: javascript
-      metric: BothOutcomesPresent
+      metric: BothSame
       value: |
+        // Try to extract two coin flip results from the output
         const lower = output.toLowerCase();
-        const hasHeads = /\bheads?\b/.test(lower);
-        const hasTails = /\btails?\b/.test(lower);
-        const pass = hasHeads && hasTails;
+        // Look for two words: heads/tails, or H/T, possibly separated by comma, space, or 'and'
+        const match = lower.match(/\b(heads?|tails?|h|t)\b[ ,]*(and)?[ ,]*(heads?|tails?|h|t)\b/);
+        if (!match) {
+          return {
+            pass: false,
+            score: 0,
+            reason: 'Could not extract two coin flip results from output',
+          };
+        }
+        const first = match[1][0] === 'h' ? 'H' : 'T';
+        const second = match[3][0] === 'h' ? 'H' : 'T';
+        const pass = first === second;
         return {
           pass,
           score: pass ? 1 : 0,
           reason: pass
-            ? 'Both "heads" and "tails" appear in the output'
-            : `Missing: ${!hasHeads ? '"heads"' : ''}${!hasHeads && !hasTails ? ' and ' : ''}${!hasTails ? '"tails"' : ''}`,
-        };
-    - type: javascript
-      metric: EqualOutcomes
-      value: |
-        const lower = output.toLowerCase();
-        const headsCount = (lower.match(/\bheads?\b/g) || []).length;
-        const tailsCount = (lower.match(/\btails?\b/g) || []).length;
-        const pass = headsCount === tailsCount && headsCount > 0;
-        return {
-          pass,
-          score: pass ? 1 : 0,
-          reason: pass
-            ? `Heads and tails each appear ${headsCount} time(s)`
-            : `Unequal: heads=${headsCount}, tails=${tailsCount}`,
+            ? `Both flips are the same: ${first}${second}`
+            : `Flips are different: ${first}${second}`,
         };
   metadata:
     category: probability
