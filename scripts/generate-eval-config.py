@@ -101,19 +101,26 @@ def load_tests(test_names, suite=None):
 
 
 def filter_tests_by_providers(tests, configured_providers):
-    """Remove test cases whose per-test providers list matches no configured
-    provider. Tests without a providers field run on all providers and are kept."""
+    """Filter and resolve per-test provider references.
+
+    - Tests without a providers field are kept as-is (run on all providers).
+    - Tests with a providers field are kept only if at least one ref matches a
+      configured provider. The providers field is rewritten to the matched
+      provider labels so promptfoo's own validation sees only exact references.
+    """
     result = []
     for test in tests:
         refs = test.get('providers')
         if refs is None:
             result.append(test)
-        elif any(
-            provider_ref_matches(ref, p)
-            for ref in refs
+            continue
+        matched_labels = [
+            p['label'] or p['id']
             for p in configured_providers
-        ):
-            result.append(test)
+            if any(provider_ref_matches(ref, p) for ref in refs)
+        ]
+        if matched_labels:
+            result.append({**test, 'providers': matched_labels})
     return result
 
 
