@@ -2,6 +2,8 @@
 
 A [promptfoo](https://www.promptfoo.dev/) project for comparing LLM models across prompts, test domains, and scenarios.
 
+![Promptfoo GUI Screenshot](assets/promptfoo-gui-screenshot.png)
+
 ## Project Structure
 
 ```
