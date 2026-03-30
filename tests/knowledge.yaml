@@ -25,7 +25,6 @@
       value: 'Shakespeare'
     - type: javascript
       value: '!output.toLowerCase().includes("i don''t know") && !output.toLowerCase().includes("i cannot") && !output.toLowerCase().includes("i''m not sure")'
-      metric: DoesNotClaimIgnorance
   metadata:
     category: knowledge
     priority: medium

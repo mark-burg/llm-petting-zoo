@@ -24,7 +24,8 @@ A [promptfoo](https://www.promptfoo.dev/) project for comparing LLM models acros
 ├── extensions/                 # Lifecycle hooks
 ├── scripts/
 │   ├── generate-eval-config.py # Patches config at runtime for manual runs
-│   └── generate-summary.py
+│   ├── generate-summary.py
+│   └── load-tests.js           # Auto-discovers tests/*.yaml, injects per-file metrics
 └── .env.example
 ```
 
@@ -44,7 +45,7 @@ npx promptfoo view
 
 ## Adding Things
 
-**Test** — add a `.yaml` file in `tests/`, then add it to the `tests:` list in `promptfooconfig.yaml`.
+**Test** — add a `.yaml` file in `tests/`. The loader (`scripts/load-tests.js`) auto-discovers all YAML files and assigns each file's name (minus extension) as the aggregate metric.
 
 **Prompt** — add a `.txt` file in `prompts/` using `{{input}}`, then reference it in `promptfooconfig.yaml`.
 
@@ -81,10 +82,6 @@ All workflows require an `OPENROUTER_API_KEY` repository secret and share the jo
 | `most-interesting-tests.yml` | Manual (`workflow_dispatch`) | Curated subset of tests across all providers |
 
 `manual-eval.yml` inputs: `tests`, `providers`, `scenarios` (comma-separated names), `fail-on-threshold` (default `80`).
-
-## Notes
-
-**Cost assertion** — `type: cost` throws on providers that report no cost data. `defaultTest` uses a `javascript` assertion that reads `context.providerResponse?.cost` and skips gracefully when absent, while still enforcing the $0.10 limit where cost is reported.
 
 ## Documentation
 

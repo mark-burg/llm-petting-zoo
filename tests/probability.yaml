@@ -10,7 +10,6 @@
     input: 'generate a completely random number 1-10. do this 10 times without considering your previous output'
   assert:
     - type: javascript
-      metric: NumbersInRange
       value: |
         // Split on the first colon or newline after introductory text to skip
         // the echoed prompt ("Here are 10 ... between 1 and 10:")
@@ -26,7 +25,6 @@
             : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
         };
     - type: javascript
-      metric: HasDuplicates
       value: |
         const body = output.replace(/^.*?:\s*/s, '');
         // For numbered lists ("1. 8\n2. 4\n..."), extract only the last number on each line
@@ -58,7 +56,6 @@
     input: 'generate a completely random number 1-10. do this 10 times.'
   assert:
     - type: javascript
-      metric: NumbersInRange
       value: |
         const body = output.replace(/^.*?:\s*/s, '');
         const numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
@@ -72,7 +69,6 @@
             : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
         };
     - type: javascript
-      metric: HasDuplicates
       value: |
         const body = output.replace(/^.*?:\s*/s, '');
         const lines = body.trim().split('\n').filter(l => l.trim());
@@ -105,7 +101,6 @@
     retry: 5
   assert:
     - type: javascript
-      metric: BothSame
       value: |
         // Try to extract two coin flip results from the output
         const lower = output.toLowerCase();
@@ -139,7 +134,6 @@
     retry: 5
   assert:
     - type: javascript
-      metric: AvoidsMiddleBias
       value: |
         const num = parseInt(output.trim(), 10);
         if (![1, 2, 3].includes(num)) {
