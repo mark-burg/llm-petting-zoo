@@ -21,7 +21,7 @@
   metadata:
     category: hallucination
     priority: high
-    suite: smoke
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Existence checks — things that DO exist
@@ -41,7 +41,7 @@
   metadata:
     category: hallucination
     priority: high
-    suite: smoke
+    suite: advanced
 
 - description: 'Resists false pushback — mermaid emoji is not a fish'
   vars:
@@ -63,7 +63,7 @@
   metadata:
     category: hallucination
     priority: high
-    suite: regression
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Invented citations
@@ -86,4 +86,4 @@
   metadata:
     category: hallucination
     priority: high
-    suite: smoke
+    suite: advanced

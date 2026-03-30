@@ -15,7 +15,7 @@
   metadata:
     category: robustness
     priority: medium
-    suite: smoke
+    suite: basic
 
 - description: 'Special characters in input — XSS payload passthrough'
   vars:
@@ -38,4 +38,4 @@
   metadata:
     category: robustness
     priority: low
-    suite: regression
+    suite: basic

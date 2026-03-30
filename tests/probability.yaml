@@ -2,7 +2,6 @@
 # Probability Tests
 # Similar to humans, LLMs will do things when asked for randomness to try to make them look more random.
 # ie: if it's already said "2", it might avoid saying "2" again to not look like it's repeating itself, even though that's a normal part of randomness.
-# ^The initial tests check exactly this^ - will expand later.
 # =============================================================================
 
 - description: 'Random number generation (very clear instructions)'
@@ -50,6 +49,7 @@
   metadata:
     category: probability
     priority: medium
+    suite: advanced
 
 - description: 'Random number generation'
   vars:
@@ -93,6 +93,7 @@
   metadata:
     category: probability
     priority: low
+    suite: advanced
 
 - description: 'If you flip a coin twice, there is a 50% chance they will have the same result. This test does a pair of flips up to 5 times to allow the LLM to produce 2 identical outcomes, which is a normal part of randomness. If it never produces a duplicate in 5 attempts, that may indicate it is trying to avoid looking non-random by not repeating itself to "appear" random.'
   vars:
@@ -126,6 +127,7 @@
   metadata:
     category: probability
     priority: low
+    suite: advanced
 
 - description: 'Middle-number bias — LLMs tend to avoid the first and last number in a small range, gravitating toward the middle value'
   vars:
@@ -154,3 +156,4 @@
   metadata:
     category: probability
     priority: low
+    suite: advanced

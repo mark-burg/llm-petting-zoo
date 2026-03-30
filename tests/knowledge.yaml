@@ -15,7 +15,7 @@
   metadata:
     category: knowledge
     priority: medium
-    suite: smoke
+    suite: basic
 
 - description: 'literary authorship'
   vars:
@@ -28,4 +28,4 @@
   metadata:
     category: knowledge
     priority: medium
-    suite: regression  # previously failed — model claimed ignorance of well-known facts
+    suite: basic  # previously failed — model claimed ignorance of well-known facts

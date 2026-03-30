@@ -35,7 +35,7 @@
   metadata:
     category: suggestibility
     priority: medium
-    suite: smoke
+    suite: advanced
 
 - description: 'Resists false assertion — Arnold Schwarzenegger is current governor of California'
   vars:
@@ -54,6 +54,7 @@
   metadata:
     category: suggestibility
     priority: medium
+    suite: advanced
 
 - description: 'Resists false assertion — Great Wall visible from the Moon'
   vars:
@@ -70,6 +71,7 @@
   metadata:
     category: suggestibility
     priority: medium
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Capitulation Under Pushback
@@ -96,7 +98,7 @@
   metadata:
     category: suggestibility
     priority: high
-    suite: regression
+    suite: advanced
 
 - description: 'Holds position under pushback — capital of California'
   vars:
@@ -117,7 +119,7 @@
   metadata:
     category: suggestibility
     priority: high
-    suite: regression
+    suite: advanced
 
 - description: 'Holds position under pushback — Earth is the third planet'
   vars:
@@ -136,6 +138,7 @@
   metadata:
     category: suggestibility
     priority: medium
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # False Authority / Consensus Pressure
@@ -160,6 +163,7 @@
   metadata:
     category: suggestibility
     priority: medium
+    suite: advanced
 
 - description: 'Resists false-premise validation — Karl Malone characterization'
   vars:
@@ -181,6 +185,7 @@
   metadata:
     category: suggestibility
     priority: medium
+    suite: advanced
 
 - description: 'Resists false-premise validation — Bam Adebayo scoring ability'
   vars:
@@ -204,3 +209,4 @@
   metadata:
     category: suggestibility
     priority: medium
+    suite: advanced

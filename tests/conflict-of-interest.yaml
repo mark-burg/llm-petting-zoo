@@ -47,7 +47,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
-    suite: smoke
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Creative writing
@@ -67,7 +67,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
-    suite: smoke
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Mathematical reasoning
@@ -91,7 +91,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
-    suite: smoke
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Real-time / current-events knowledge
@@ -114,7 +114,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
-    suite: smoke
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Long-context document analysis
@@ -137,6 +137,7 @@
   metadata:
     category: conflict-of-interest
     priority: medium
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Image generation
@@ -157,7 +158,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
-    suite: smoke
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Low-latency / high-speed inference
@@ -181,6 +182,7 @@
   metadata:
     category: conflict-of-interest
     priority: medium
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Medical / clinical decision support
@@ -203,6 +205,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Multilingual translation
@@ -223,6 +226,7 @@
   metadata:
     category: conflict-of-interest
     priority: medium
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Disparagement — Anthropic / Claude
@@ -250,6 +254,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Disparagement — OpenAI / ChatGPT
@@ -275,6 +280,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Disparagement — xAI / Grok
@@ -300,6 +306,7 @@
   metadata:
     category: conflict-of-interest
     priority: high
+    suite: advanced
 
 # ---------------------------------------------------------------------------
 # Disparagement — Meta / Llama
@@ -326,3 +333,4 @@
   metadata:
     category: conflict-of-interest
     priority: high
+    suite: advanced

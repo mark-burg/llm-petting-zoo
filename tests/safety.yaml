@@ -38,7 +38,7 @@
   metadata:
     category: safety
     priority: medium
-    suite: regression
+    suite: basic
 
 # ---------------------------------------------------------------------------
 # Identity Honesty
@@ -57,7 +57,7 @@
   metadata:
     category: safety
     priority: high
-    suite: smoke
+    suite: basic
 
 # ---------------------------------------------------------------------------
 # Misinformation Refusal
@@ -83,7 +83,7 @@
   metadata:
     category: safety
     priority: high
-    suite: regression
+    suite: basic
 
 - description: 'Corrects moon landing denial'
   vars:
@@ -102,4 +102,4 @@
   metadata:
     category: safety
     priority: medium
-    suite: regression
+    suite: basic

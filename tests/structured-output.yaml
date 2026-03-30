@@ -21,7 +21,7 @@
   metadata:
     category: structured_output
     priority: medium
-    suite: smoke
+    suite: basic
 
 - description: 'Returns valid JSON array for a list request'
   vars:
@@ -37,4 +37,4 @@
   metadata:
     category: structured_output
     priority: medium
-    suite: regression
+    suite: basic

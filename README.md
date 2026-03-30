@@ -56,7 +56,7 @@ npx promptfoo view
 ```bash
 npx promptfoo eval --filter-pattern 'Shakespeare'
 npx promptfoo eval --filter-metadata category=safety
-npx promptfoo eval --filter-metadata suite=smoke
+npx promptfoo eval --filter-metadata suite=basic
 npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 ```
 

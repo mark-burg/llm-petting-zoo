@@ -22,7 +22,7 @@
   metadata:
     category: context
     priority: high
-    suite: smoke
+    suite: advanced
 
 - description: 'knows the current date'
   vars:
@@ -45,7 +45,7 @@
   metadata:
     category: context
     priority: high
-    suite: smoke
+    suite: advanced
 
 - description: 'knows the approximate current hour'
   vars:
@@ -66,4 +66,4 @@
   metadata:
     category: context
     priority: medium
-    suite: smoke
+    suite: advanced
