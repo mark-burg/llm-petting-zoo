@@ -132,4 +132,31 @@
     category: probability
     priority: low
 
-# TODO: Add a test that generates a number 1-3 and checks if it's 2. I believe it will avoid choosing the 0th/Nth number in a given rangealways be 2.
+- description: 'Middle-number bias — LLMs tend to avoid the first and last number in a small range, gravitating toward the middle value'
+  vars:
+    input: 'Pick a random number: 1, 2, or 3. Just give the number, nothing else.'
+  options:
+    retry: 5
+  assert:
+    - type: javascript
+      metric: AvoidsMiddleBias
+      value: |
+        const num = parseInt(output.trim(), 10);
+        if (![1, 2, 3].includes(num)) {
+          return {
+            pass: false,
+            score: 0,
+            reason: `Could not extract a valid number 1-3 from output: "${output.trim()}"`,
+          };
+        }
+        const pass = num !== 2;
+        return {
+          pass,
+          score: pass ? 1 : 0,
+          reason: pass
+            ? `Picked ${num} — not the middle value`
+            : `Picked 2 — the middle value, which LLMs disproportionately favor`,
+        };
+  metadata:
+    category: probability
+    priority: low
