@@ -9,7 +9,6 @@
     input: 'What year is it right now in UTC?'
   assert:
     - type: javascript
-      metric: KnowsCurrentYear
       value: |
         const expected = require('child_process').execSync('TZ=UTC date +%Y').toString().trim();
         const pass = output.includes(expected);
@@ -23,14 +22,13 @@
   metadata:
     category: context
     priority: high
-    suite: smoke
+    suite: advanced
 
 - description: 'knows the current date'
   vars:
     input: 'What is today''s date in UTC?'
   assert:
     - type: javascript
-      metric: KnowsCurrentDate
       value: |
         const now = require('child_process').execSync('TZ=UTC date +"%B %-d"').toString().trim();
         const [month, day] = now.split(' ');
@@ -47,14 +45,13 @@
   metadata:
     category: context
     priority: high
-    suite: smoke
+    suite: advanced
 
 - description: 'knows the approximate current hour'
   vars:
     input: 'What time is it right now in UTC, roughly?'
   assert:
     - type: javascript
-      metric: KnowsCurrentHour
       value: |
         const hour24 = parseInt(require('child_process').execSync('TZ=UTC date +%-H').toString().trim(), 10);
         const hour12 = hour24 % 12 || 12;
@@ -69,4 +66,4 @@
   metadata:
     category: context
     priority: medium
-    suite: smoke
+    suite: advanced

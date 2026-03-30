@@ -9,7 +9,6 @@
  *   assert:
  *     - type: javascript
  *       value: file://assertions/valid_json.js
- *       metric: ValidJson
  *
  * With required-key validation:
  *   vars:
@@ -17,7 +16,6 @@
  *   assert:
  *     - type: javascript
  *       value: file://assertions/valid_json.js
- *       metric: ValidJson
  *
  * @param {string} output - The LLM output text.
  * @param {object} context - { vars, prompt, test, provider, providerResponse }

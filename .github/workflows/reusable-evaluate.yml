@@ -20,7 +20,7 @@ on:
         type: number
         default: 80
       suite:
-        description: 'Only run tests tagged with this suite in metadata (e.g. smoke). Empty means run all.'
+        description: 'Only run tests tagged with this suite in metadata (e.g. basic, advanced). Empty means run all.'
         type: string
         default: ''
     secrets:

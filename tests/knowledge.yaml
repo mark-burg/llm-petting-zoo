@@ -15,7 +15,7 @@
   metadata:
     category: knowledge
     priority: medium
-    suite: smoke
+    suite: basic
 
 - description: 'literary authorship'
   vars:
@@ -25,8 +25,7 @@
       value: 'Shakespeare'
     - type: javascript
       value: '!output.toLowerCase().includes("i don''t know") && !output.toLowerCase().includes("i cannot") && !output.toLowerCase().includes("i''m not sure")'
-      metric: DoesNotClaimIgnorance
   metadata:
     category: knowledge
     priority: medium
-    suite: regression  # previously failed — model claimed ignorance of well-known facts
+    suite: basic  # previously failed — model claimed ignorance of well-known facts

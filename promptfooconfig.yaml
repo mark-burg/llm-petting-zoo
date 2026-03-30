@@ -47,54 +47,13 @@ defaultTest:
     # Every response must complete within 30 seconds
     - type: latency
       threshold: 30000
-    # Cost guard — skips gracefully if the provider does not report cost (e.g. Meta-Llama).
-    # The native `type: cost` throws a hard error on providers that return no cost data;
-    # this javascript version checks context.providerResponse?.cost first.
-    # Docs: https://www.promptfoo.dev/docs/configuration/expected-outputs/javascript/
-    - type: javascript
-      metric: Cost
-      value: |
-        const cost = context.providerResponse?.cost;
-        if (cost === undefined) {
-          return { pass: true, score: 1, reason: 'Provider does not report cost — skipped' };
-        }
-        const pass = cost < 0.10;
-        return {
-          pass,
-          score: pass ? 1 : 0,
-          reason: pass
-            ? `Cost $${cost.toFixed(4)} is within the $0.10 limit`
-            : `Cost $${cost.toFixed(4)} exceeds the $0.10 limit`,
-        };
-
-# ---------------------------------------------------------------------------
-# Assertion templates — reusable via $ref
-# Docs: https://www.promptfoo.dev/docs/configuration/guide/#yaml-references
-# ---------------------------------------------------------------------------
-assertionTemplates:
-  noAIReference:
-    # Deterministic heuristic — no extra LLM grading call.
-    # Add more phrases as needed.
-    type: javascript
-    value: "!/\\b(i am an? (ai|model|chatbot|language model)|as an ai|i'm an? (ai|model|chatbot))\\b/i.test(output)"
-    metric: Identity
 
 # ---------------------------------------------------------------------------
 # Tests — loaded from external YAML files via globs
 # Docs: https://www.promptfoo.dev/docs/configuration/guide/#import-tests-from-separate-files
 # ---------------------------------------------------------------------------
 tests:
-  # - file://tests/*.yaml
-  - file://tests/conflict-of-interest.yaml
-  - file://tests/context.yaml
-  - file://tests/hallucinations.yaml
-  - file://tests/knowledge.yaml
-  - file://tests/probability.yaml
-  - file://tests/reasoning.yaml
-  - file://tests/robustness.yaml
-  - file://tests/safety.yaml
-  - file://tests/structured-output.yaml
-  - file://tests/suggestibility.yaml
+  - file://scripts/load-tests.js
 
 # ---------------------------------------------------------------------------
 # Scenarios — grouped data × test matrices

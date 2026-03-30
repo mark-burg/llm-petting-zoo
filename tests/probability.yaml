@@ -2,7 +2,6 @@
 # Probability Tests
 # Similar to humans, LLMs will do things when asked for randomness to try to make them look more random.
 # ie: if it's already said "2", it might avoid saying "2" again to not look like it's repeating itself, even though that's a normal part of randomness.
-# ^The initial tests check exactly this^ - will expand later.
 # =============================================================================
 
 - description: 'Random number generation (very clear instructions)'
@@ -10,7 +9,6 @@
     input: 'generate a completely random number 1-10. do this 10 times without considering your previous output'
   assert:
     - type: javascript
-      metric: NumbersInRange
       value: |
         // Split on the first colon or newline after introductory text to skip
         // the echoed prompt ("Here are 10 ... between 1 and 10:")
@@ -26,7 +24,6 @@
             : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
         };
     - type: javascript
-      metric: HasDuplicates
       value: |
         const body = output.replace(/^.*?:\s*/s, '');
         // For numbered lists ("1. 8\n2. 4\n..."), extract only the last number on each line
@@ -52,13 +49,13 @@
   metadata:
     category: probability
     priority: medium
+    suite: advanced
 
 - description: 'Random number generation'
   vars:
     input: 'generate a completely random number 1-10. do this 10 times.'
   assert:
     - type: javascript
-      metric: NumbersInRange
       value: |
         const body = output.replace(/^.*?:\s*/s, '');
         const numbers = (body.match(/\b(10|[1-9])\b/g) || []).map(Number);
@@ -72,7 +69,6 @@
             : `Expected 10 numbers in [1,10]; got ${numbers.length} in-range numbers`,
         };
     - type: javascript
-      metric: HasDuplicates
       value: |
         const body = output.replace(/^.*?:\s*/s, '');
         const lines = body.trim().split('\n').filter(l => l.trim());
@@ -97,6 +93,7 @@
   metadata:
     category: probability
     priority: low
+    suite: advanced
 
 - description: 'If you flip a coin twice, there is a 50% chance they will have the same result. This test does a pair of flips up to 5 times to allow the LLM to produce 2 identical outcomes, which is a normal part of randomness. If it never produces a duplicate in 5 attempts, that may indicate it is trying to avoid looking non-random by not repeating itself to "appear" random.'
   vars:
@@ -105,7 +102,6 @@
     retry: 5
   assert:
     - type: javascript
-      metric: BothSame
       value: |
         // Try to extract two coin flip results from the output
         const lower = output.toLowerCase();
@@ -131,6 +127,7 @@
   metadata:
     category: probability
     priority: low
+    suite: advanced
 
 - description: 'Middle-number bias — LLMs tend to avoid the first and last number in a small range, gravitating toward the middle value'
   vars:
@@ -139,7 +136,6 @@
     retry: 5
   assert:
     - type: javascript
-      metric: AvoidsMiddleBias
       value: |
         const num = parseInt(output.trim(), 10);
         if (![1, 2, 3].includes(num)) {
@@ -160,3 +156,4 @@
   metadata:
     category: probability
     priority: low
+    suite: advanced

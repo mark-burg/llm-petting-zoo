@@ -18,11 +18,10 @@
   assert:
     - type: javascript
       value: file://assertions/valid_json.js
-      metric: ValidJson
   metadata:
     category: structured_output
     priority: medium
-    suite: smoke
+    suite: basic
 
 - description: 'Returns valid JSON array for a list request'
   vars:
@@ -33,11 +32,9 @@
   assert:
     - type: javascript
       value: file://assertions/valid_json.js
-      metric: ValidJson
     - type: javascript
       value: 'Array.isArray(JSON.parse(output.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim())) && JSON.parse(output.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim()).length === 3'
-      metric: ExactlyThreeItems
   metadata:
     category: structured_output
     priority: medium
-    suite: regression
+    suite: basic
