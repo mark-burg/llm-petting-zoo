@@ -8,8 +8,8 @@ environment variables, and writes promptfooconfig-run.yaml.
 Environment variables:
   TESTS_INPUT      Comma-separated test names.
                    Options: conflict-of-interest, context, hallucinations,
-                            knowledge, reasoning, robustness, safety,
-                            structured-output, suggestibility
+                            knowledge, probability, reasoning, robustness,
+                            safety, structured-output, suggestibility
   PROVIDERS_INPUT  Comma-separated provider keys.
                    Options: gpt-4.1-mini, meta-llama-3.1-8b,
                             claude-3.5-haiku, gpt-4o
@@ -25,7 +25,7 @@ import yaml
 
 KNOWN_TESTS = [
     'conflict-of-interest', 'context', 'hallucinations',
-    'knowledge', 'reasoning', 'robustness',
+    'knowledge', 'probability', 'reasoning', 'robustness',
     'safety', 'structured-output', 'suggestibility',
 ]
 KNOWN_PROVIDERS = [

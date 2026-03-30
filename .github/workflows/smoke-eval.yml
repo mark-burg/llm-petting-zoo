@@ -19,7 +19,7 @@ jobs:
       pull-requests: write
     uses: ./.github/workflows/reusable-evaluate.yml
     with:
-      tests: 'conflict-of-interest, context, hallucinations, knowledge, reasoning, robustness, safety, structured-output, suggestibility'
+      tests: 'conflict-of-interest, context, hallucinations, knowledge, probability, reasoning, robustness, safety, structured-output, suggestibility'
       providers: 'gpt-4.1-mini, claude-3.5-haiku'
       scenarios: 'localization'
       suite: 'smoke'

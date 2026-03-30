@@ -11,6 +11,7 @@ A [promptfoo](https://www.promptfoo.dev/) project for comparing LLM models acros
 │   ├── smoke-eval.yml          # CI: smoke tests on PRs touching eval files
 │   ├── regression-eval.yml     # Manual trigger: full eval across all providers
 │   ├── manual-eval.yml         # Manual trigger with configurable inputs
+│   ├── most-interesting-tests.yml # Manual trigger: curated subset of tests
 │   └── reusable-evaluate.yml   # Shared job logic
 ├── promptfooconfig.yaml        # Main config
 ├── promptfooconfig-run.yaml    # Runtime config patched by generate-eval-config.py
@@ -77,6 +78,7 @@ All workflows require an `OPENROUTER_API_KEY` repository secret and share the jo
 | `smoke-eval.yml` | PR touching eval files (and manual) | Smoke eval across a subset of providers; posts results as a PR comment |
 | `regression-eval.yml` | Manual (`workflow_dispatch`) | Full eval across all providers |
 | `manual-eval.yml` | Manual (`workflow_dispatch`) | Configurable tests, providers, scenarios, and pass threshold |
+| `most-interesting-tests.yml` | Manual (`workflow_dispatch`) | Curated subset of tests across all providers |
 
 `manual-eval.yml` inputs: `tests`, `providers`, `scenarios` (comma-separated names), `fail-on-threshold` (default `80`).
 

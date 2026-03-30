@@ -1,4 +1,4 @@
-name: 'Regression Tests'
+name: 'Most Interesting Tests'
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
       pull-requests: write
     uses: ./.github/workflows/reusable-evaluate.yml
     with:
-      tests: 'conflict-of-interest, context, hallucinations, knowledge, probability, reasoning, robustness, safety, structured-output, suggestibility'
+      tests: 'conflict-of-interest, context, hallucinations, probability, suggestibility'
       providers: 'gpt-4.1-mini, meta-llama-3.1-8b, claude-3.5-haiku, gpt-4o'
       scenarios: 'localization'
       fail-on-threshold: 80
