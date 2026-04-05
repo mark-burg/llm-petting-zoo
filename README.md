@@ -62,24 +62,24 @@ npx promptfoo eval --filter-providers 'gpt-4.1-mini'
 
 ## Useful Commands
 
-| Command | Description |
-|---|---|
-| `npx promptfoo eval` | Run the full evaluation matrix |
-| `npx promptfoo view` | Open results in the browser |
-| `npx promptfoo cache clear` | Clear the response cache |
-| `npx promptfoo eval --no-cache` | Run without caching |
-| `npx promptfoo eval --repeat 3` | Run each test N times |
+| Command                         | Description                    |
+| ------------------------------- | ------------------------------ |
+| `npx promptfoo eval`            | Run the full evaluation matrix |
+| `npx promptfoo view`            | Open results in the browser    |
+| `npx promptfoo cache clear`     | Clear the response cache       |
+| `npx promptfoo eval --no-cache` | Run without caching            |
+| `npx promptfoo eval --repeat 3` | Run each test N times          |
 
 ## CI / CD
 
 All workflows require an `OPENROUTER_API_KEY` repository secret and share the job logic in `reusable-evaluate.yml`.
 
-| Workflow | Trigger | Behaviour |
-|---|---|---|
-| `smoke-eval.yml` | PR touching eval files (and manual) | Smoke eval across a subset of providers; posts results as a PR comment |
-| `regression-eval.yml` | Manual (`workflow_dispatch`) | Full eval across all providers |
-| `manual-eval.yml` | Manual (`workflow_dispatch`) | Configurable tests, providers, scenarios, and pass threshold |
-| `most-interesting-tests.yml` | Manual (`workflow_dispatch`) | Curated subset of tests across all providers |
+| Workflow                     | Trigger                             | Behaviour                                                              |
+| ---------------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
+| `smoke-eval.yml`             | PR touching eval files (and manual) | Smoke eval across a subset of providers; posts results as a PR comment |
+| `regression-eval.yml`        | Manual (`workflow_dispatch`)        | Full eval across all providers                                         |
+| `manual-eval.yml`            | Manual (`workflow_dispatch`)        | Configurable tests, providers, scenarios, and pass threshold           |
+| `most-interesting-tests.yml` | Manual (`workflow_dispatch`)        | Curated subset of tests across all providers                           |
 
 `manual-eval.yml` inputs: `tests`, `providers`, `scenarios` (comma-separated names), `fail-on-threshold` (default `80`).
 
@@ -91,4 +91,3 @@ All workflows require an `OPENROUTER_API_KEY` repository secret and share the jo
 - [Modular Configs](https://www.promptfoo.dev/docs/configuration/modular-configs/)
 - [Assertions & Metrics](https://www.promptfoo.dev/docs/configuration/expected-outputs/)
 - [Scenarios](https://www.promptfoo.dev/docs/configuration/scenarios/)
-

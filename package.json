@@ -6,7 +6,10 @@
     "eval": "promptfoo eval",
     "eval:view": "promptfoo eval && promptfoo view",
     "view": "promptfoo view",
-    "cache:clear": "promptfoo cache clear"
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "cache:clear": "promptfoo cache clear",
+    "prepare": "husky"
   },
   "keywords": [
     "promptfoo",
@@ -18,8 +21,14 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "husky": "^9.1.7",
     "js-yaml": "^4.1.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "3.8.1",
     "promptfoo": "^0.120.26"
+  },
+  "lint-staged": {
+    "*.{js,json,md,txt}": "prettier --write"
   },
   "dependencies": {
     "gcp-metadata": "^7.0.1",

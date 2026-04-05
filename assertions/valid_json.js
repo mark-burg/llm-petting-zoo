@@ -23,7 +23,10 @@
  */
 module.exports = (output, context) => {
   // Strip markdown code fences if the model wrapped the JSON in them
-  const stripped = output.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  const stripped = output
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```$/, '')
+    .trim();
 
   let parsed;
   try {
@@ -47,7 +50,10 @@ module.exports = (output, context) => {
 
   const requiredKeys = Array.isArray(rawKeys)
     ? rawKeys
-    : String(rawKeys).split(',').map((k) => k.trim()).filter(Boolean);
+    : String(rawKeys)
+        .split(',')
+        .map((k) => k.trim())
+        .filter(Boolean);
 
   const missing = requiredKeys.filter((k) => !(k in parsed));
   if (missing.length > 0) {
